@@ -5,10 +5,8 @@ from llm.llm_provider import LLMProvider
 from config.settings import Settings
 
 
-# TODO: Import concrete provider implementations here
-# For example:
-# from llm.gemini_provider import GeminiProvider
-# from llm.groq_provider import GroqProvider
+from llm.gemini_provider import GeminiProvider
+from llm.groq_provider import GroqProvider
 
 
 class LLMProviderFactory:
@@ -39,13 +37,9 @@ class LLMProviderFactory:
         provider_name = self.settings.default_provider.strip().lower()
 
         if provider_name == "gemini":
-            # TODO: Instantiate GeminiProvider when implemented
-            # return GeminiProvider(settings=self.settings)
-            raise NotImplementedError("GeminiProvider not yet implemented.")
+            return GeminiProvider(api_key=self.settings.get_gemini_api_key(), model=self.settings.default_model)
         elif provider_name == "groq":
-            # TODO: Instantiate GroqProvider when implemented
-            # return GroqProvider(settings=self.settings)
-            raise NotImplementedError("GroqProvider not yet implemented.")
+            return GroqProvider(api_key=self.settings.get_groq_api_key(), model=self.settings.default_model)
         # TODO: Add registration for new providers here
         # elif provider_name == "openai":
         #     return OpenAIProvider(settings=self.settings)
