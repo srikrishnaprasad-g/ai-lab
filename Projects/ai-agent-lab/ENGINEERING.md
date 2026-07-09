@@ -109,6 +109,8 @@ scripts/
 ├── test_tool_registry.py
 └── test_orchestrator.py
 
+Framework components should be validated using reusable smoke test scripts rather than manual REPL sessions whenever practical.
+
 This is different from pytest.
 
 These are executable developer diagnostics.

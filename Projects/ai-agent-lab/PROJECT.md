@@ -596,6 +596,22 @@ End-to-End Runtime Skeleton
 
 The runtime will execute a complete multi-agent workflow using mock implementations, providing a stable foundation for integrating real tools and LLM providers in subsequent sprints.
 
+## Sprint 2 Progress
+
+### Completed
+- Provider abstraction
+- Configuration layer
+- Agent framework
+- Tool framework
+- RequestContext runtime model
+
+### Remaining
+- Registry framework
+- Orchestrator
+- Mock agents
+- Mock tools
+- End-to-end smoke test
+
 Looking Ahead – Sprint 3 (Preview)
 
 Sprint 3 will replace the mock components with real implementations:
