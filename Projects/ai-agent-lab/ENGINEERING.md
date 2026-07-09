@@ -152,3 +152,12 @@ Whenever architecture changes:
 Write the document in professional Markdown suitable for an open-source project.
 
 Do not modify any other files.
+
+## Repository Hygiene
+
+Before every commit:
+
+- Review git status.
+- Remove generated artifacts from version control.
+- Never commit __pycache__, logs, temporary files, or IDE metadata.
+- Prefer small, logically grouped commits over large mixed commits.
