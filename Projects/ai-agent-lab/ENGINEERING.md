@@ -97,6 +97,42 @@ Every implementation must satisfy all of the following before commit:
 - No TODOs blocking current sprint
 - Git commit created with meaningful message
 
+# Verification Suite Convention
+
+Every major component gets a smoke test.
+
+scripts/
+│
+├── test_groq.py
+├── test_gemini.py
+├── test_factory.py
+├── test_tool_registry.py
+└── test_orchestrator.py
+
+This is different from pytest.
+
+These are executable developer diagnostics.
+
+# Regression Suite Convention
+
+Example Requests
+
+examples/
+
+research_ai.txt
+
+research_quantum.txt
+
+research_llms.txt
+
+Whenever we finish a sprint, we rerun these.
+
+If they still work...
+
+We know we didn't break anything.
+
+This becomes our regression suite
+
 # Prompting Guidelines
 
 Every implementation prompt should begin with:

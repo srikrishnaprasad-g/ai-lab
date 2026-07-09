@@ -16,6 +16,138 @@ The project is intended as a learning platform for modern AI Agent architectures
 
 ---
 
+## MVP Scenario
+
+                 User
+
+                   │
+
+                   ▼
+
+         Orchestrator Agent
+
+                   │
+
+         "How do I solve this?"
+
+                   │
+
+         Creates Execution Plan
+
+                   │
+
+      ┌────────────┴────────────┐
+      ▼                         ▼
+
+Research Agent          Writer Agent
+
+      │                         │
+
+Web Search Tool         Summarization
+
+      │                         │
+
+      ▼                         ▼
+
+      Search Results       Draft Summary
+
+              │
+
+              ▼
+
+         PDF Agent
+
+              │
+
+      PDF Generation Tool
+
+              │
+
+              ▼
+
+          PDF File
+
+              │
+
+              ▼
+
+         Return to User
+
+The first end-to-end workflow for this project is:
+
+Research Topic
+    ↓
+Web Search
+    ↓
+Research Agent
+    ↓
+Summary Generation
+    ↓
+PDF Report Generation
+    ↓
+Return PDF to User
+
+All future architectural decisions should support this workflow.
+
+What happens internally?
+
+                 User
+
+                   │
+
+                   ▼
+
+         Orchestrator Agent
+
+                   │
+
+         "How do I solve this?"
+
+                   │
+
+         Creates Execution Plan
+
+                   │
+
+      ┌────────────┴────────────┐
+      ▼                         ▼
+
+Research Agent          Writer Agent
+
+      │                         │
+
+Web Search Tool         Summarization
+
+      │                         │
+
+      ▼                         ▼
+
+      Search Results       Draft Summary
+
+              │
+
+              ▼
+
+         PDF Agent
+
+              │
+
+      PDF Generation Tool
+
+              │
+
+              ▼
+
+          PDF File
+
+              │
+
+              ▼
+
+         Return to User
+
+---
+
 # Design Principles
 
 1. Keep components small and modular.
@@ -261,34 +393,220 @@ Focus on architecture.
 
 # Current Sprint
 
-Sprint 1
+Sprint 1: Officially Complete
 
-Status
+We've achieved much more than just writing code:
 
-Task 0
-Development Environment
-✔ Workspace
-✔ Git
-✔ Claude Code
-✔ CCR
-✔ Gemini
+✅ Established a disciplined engineering workflow.
+✅ Built a provider abstraction layer.
+✅ Implemented Gemini and Groq providers (structure).
+✅ Implemented a working provider factory.
+✅ Validated compile, import, and runtime behavior.
+✅ Verified direct Groq connectivity independently of CCR.
+✅ Refined the project architecture and engineering documentation.
 
-In Progress
+Sprint 2 – Multi-Agent Runtime Foundation
+Sprint Goal
 
-Groq Integration
+Build the foundational runtime for a production-quality multi-agent AI system. The runtime should be capable of receiving a user request, orchestrating specialized agents, selecting appropriate tools, interacting with LLM providers, and producing a unified response. This sprint focuses on the architecture and execution framework rather than implementing specific business capabilities.
 
-Upcoming
+No business-specific logic should be implemented in this sprint. The objective is to establish a clean, extensible runtime that future agents and tools can plug into.
 
-LLM Interface
+Sprint 2 Roadmap
+Task 2.1 – Agent Framework
 
-Gemini Client
+Objective
 
-Configuration
+Build the foundation for every future agent.
 
-Main Agent
+Deliverables
+Create agents/ package
+Create abstract Agent interface
+Define common lifecycle methods
+Add comprehensive documentation and type hints
+Validation
+Compile successfully
+Smoke test agent instantiation
+Git commit
+Task 2.2 – Tool Framework
 
-Logging
+Objective
 
+Create a common abstraction for every executable capability.
+
+Deliverables
+Create tools/ package
+Create abstract Tool interface
+Standardize tool execution contract
+Tool metadata structure
+Validation
+Compile
+Smoke test
+Git commit
+Task 2.3 – Request Context
+
+Objective
+
+Create a shared execution context that travels throughout the runtime.
+
+Responsibilities
+
+Store:
+
+Request ID
+User request
+Intermediate results
+Shared execution state
+Metadata
+
+This object will be passed between every agent.
+
+Validation
+Compile
+Runtime validation
+Git commit
+Task 2.4 – Tool Registry
+
+Objective
+
+Create a registry responsible for discovering and providing available tools.
+
+Responsibilities
+Register tools
+Discover tools
+Retrieve tool instances
+Future plugin support
+Validation
+Register dummy tools
+Retrieve tools
+Smoke test
+Git commit
+Task 2.5 – Orchestrator Agent
+
+Objective
+
+Build the runtime entry point.
+
+Responsibilities
+Accept user requests
+Initialize RequestContext
+Delegate work to specialized agents
+Aggregate responses
+Return final result
+
+Important
+
+The Orchestrator should not decide which tools to execute.
+
+It only coordinates execution.
+
+Validation
+Simulated execution
+Smoke test
+Git commit
+Task 2.6 – Research Agent
+
+Objective
+
+Build the first specialized agent.
+
+Responsibilities
+Understand research objectives
+Decide when web search is required
+Invoke Search Tool
+Produce structured research output
+Validation
+Mock tool execution
+Runtime validation
+Git commit
+Task 2.7 – Writer Agent
+
+Objective
+
+Transform research into a coherent report.
+
+Responsibilities
+Consume research output
+Generate structured summary
+Produce markdown-ready content
+Validation
+Mock inputs
+Smoke test
+Git commit
+Task 2.8 – PDF Agent
+
+Objective
+
+Generate the final deliverable.
+
+Responsibilities
+Convert report into PDF
+Return generated file path
+Handle formatting
+Validation
+Generate sample PDF
+Verify output
+Git commit
+Task 2.9 – End-to-End Runtime
+
+Objective
+
+Connect every component built during Sprint 2.
+
+Expected Flow
+User Request
+      │
+      ▼
+Orchestrator Agent
+      │
+      ▼
+Research Agent
+      │
+      ▼
+Search Tool (Mock)
+      │
+      ▼
+Writer Agent
+      │
+      ▼
+PDF Agent
+      │
+      ▼
+PDF Output
+
+The Search Tool will initially be mocked. Real web search and LLM integrations will be introduced in Sprint 3.
+
+Validation
+Execute complete workflow
+Smoke test
+Git commit
+Sprint 2 Deliverables
+
+By the end of Sprint 2, the project will include:
+
+Agent Framework
+Tool Framework
+Request Context
+Tool Registry
+Orchestrator Agent
+Research Agent
+Writer Agent
+PDF Agent
+End-to-End Runtime Skeleton
+
+The runtime will execute a complete multi-agent workflow using mock implementations, providing a stable foundation for integrating real tools and LLM providers in subsequent sprints.
+
+Looking Ahead – Sprint 3 (Preview)
+
+Sprint 3 will replace the mock components with real implementations:
+
+Gemini Provider integration
+Groq Provider integration
+Web Search Tool
+Prompt templates
+Agent reasoning
+Tool selection logic
+Report quality improvements
 ---
 
 # Future Roadmap
