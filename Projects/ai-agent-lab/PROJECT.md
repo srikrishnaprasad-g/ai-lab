@@ -2,7 +2,7 @@
 
 ## Vision
 
-Build a production-quality modular AI Agent that demonstrates:
+Build a production-quality modular Multi-Agent Runtime capable of orchestration, tool execution, provider abstraction, and observability that demonstrates:
 
 - Multi-agent orchestration
 - Dynamic tool selection
@@ -35,7 +35,7 @@ User
 
 ↓
 
-Orchestrator Agent
+OrchestratorAgent
 
 ↓
 
@@ -43,11 +43,15 @@ Planner
 
 ↓
 
-Task Router
+Task Graph
 
 ↓
 
 Specialized Agents
+
+↓
+
+Tool Registry
 
 ↓
 
@@ -61,14 +65,15 @@ LLM Providers
 
 Response
 
-Every step must emit telemetry.
+
+The runtime should expose sufficient execution information to allow observability tooling such as PUVINoise to instrument execution
 
 ---
 
 # Current Development Environment
 
 Workspace:
-C:\AI-Lab
+C:\AI-LAb\projects\ai-agent-lab
 
 Development Tool:
 Claude Code
@@ -108,17 +113,17 @@ PUVINoise
 
 ## Phase 1
 
-- Main Agent
+- Orchestrator Agent
 
 ## Phase 2
 
 - Planner Agent
 - Research Agent
-- Writer Agent
 
 ## Phase 3
 
 - Coding Agent
+- Analysis Agent
 - Critic Agent
 - Memory Agent
 
@@ -126,12 +131,16 @@ PUVINoise
 
 # Planned Tools
 
-- Web Search
+- Search
 - Calculator
 - File Reader
 - Memory
 - SQL
 - Git
+- Python
+- HTTP
+- Browser
+- PDF Reader
 
 Each tool must be independently testable.
 

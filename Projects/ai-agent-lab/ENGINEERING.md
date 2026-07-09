@@ -1,5 +1,10 @@
 This document will define the engineering practices for the AI Agent Lab project.
 
+# Architecture First Principle
+
+- Design before implementation.
+- Major components should be reviewed before code generation.
+
 # Engineering Principles
 
 - Build incrementally.
@@ -17,8 +22,11 @@ For every task:
 3. Implement only the requested scope.
 4. Keep changes localized.
 5. Review your own implementation.
-6. Run tests (when available).
-7. Prepare for commit.
+6. Run tests.
+7. Runtime validation is mandatory.
+8. Compilation alone is insufficient.
+9. Prepare for commit.
+10. Prefer extending interfaces over changing existing public APIs.
 
 # AI-Assisted Development Workflow
 
@@ -79,6 +87,15 @@ A task is complete only if:
 - No unnecessary complexity.
 - Self-review completed.
 - Ready to commit.
+
+Every implementation must satisfy all of the following before commit:
+
+- Architecture reviewed
+- Claude self-review completed
+- Code compiles (`python -m py_compile`)
+- Imports validated
+- No TODOs blocking current sprint
+- Git commit created with meaningful message
 
 # Prompting Guidelines
 
