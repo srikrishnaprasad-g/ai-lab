@@ -604,14 +604,15 @@ The runtime will execute a complete multi-agent workflow using mock implementati
 - Request Context
 - Component Registry
 - Runtime Orchestrator
+- Runtime Result
 
-### Runtime Workflow ✅
-- Mock Web Search Tool
-- Mock Research Agent
+### Workflow Components ✅
 - Root Agent
+- Mock Research Agent
+- Mock Web Search Tool
 
 ### Remaining
-- Runtime Result
+- Runtime Bootstrap
 - Mock Summary Agent
 - Mock PDF Tool
 - End-to-End Smoke Test
