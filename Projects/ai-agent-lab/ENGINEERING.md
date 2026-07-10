@@ -181,3 +181,11 @@ Agents must never directly instantiate Tools.
 All Tool access must occur through ToolRegistry using dependency injection.
 
 This preserves loose coupling, enables tool replacement, and improves testability.
+
+## Integration Validation Rule
+
+Whenever a new Agent or Tool is introduced:
+
+1. Register it through the appropriate Registry.
+2. Validate it through the RuntimeOrchestrator.
+3. Do not validate components in isolation if they are intended to participate in the runtime workflow.

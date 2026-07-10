@@ -9,6 +9,7 @@ from registry.agent_registry import AgentRegistry
 from registry.tool_registry import ToolRegistry
 from registry.exceptions import ComponentNotFoundError
 from runtime.exceptions import OrchestrationError
+from runtime.runtime_result import RuntimeResult
 
 
 class RuntimeOrchestrator:
@@ -26,14 +27,14 @@ class RuntimeOrchestrator:
         self._tool_registry = tool_registry
         self._root_agent = root_agent
 
-    def execute(self, user_request: str) -> AgentResult:
+    def execute(self, user_request: str) -> RuntimeResult:
         """Orchestrates the execution of a user request.
 
         Args:
             user_request: The request string provided by the user.
 
         Returns:
-            The final result of the agent orchestration.
+            The complete runtime result containing context and agent result.
 
         Raises:
             OrchestrationError: If orchestration fails (e.g., root agent not found).
@@ -55,6 +56,7 @@ class RuntimeOrchestrator:
 
         # Invoke root agent
         try:
-            return root_agent.execute(context)
+            result = root_agent.execute(context)
+            return RuntimeResult(context=context, result=result)
         except AgentExecutionError as e:
             raise OrchestrationError(f"Root agent execution failed: {e}") from e

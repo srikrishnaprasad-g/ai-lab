@@ -605,15 +605,15 @@ The runtime will execute a complete multi-agent workflow using mock implementati
 - Component Registry
 - Runtime Orchestrator
 
-### Runtime Components ✅
+### Runtime Workflow ✅
 - Mock Web Search Tool
 - Mock Research Agent
+- Root Agent
 
 ### Remaining
-- Root Agent
+- Runtime Result
 - Mock Summary Agent
 - Mock PDF Tool
-- Runtime Wiring
 - End-to-End Smoke Test
 
 ### Future
