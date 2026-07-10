@@ -173,3 +173,11 @@ Before every commit:
 - Remove generated artifacts from version control.
 - Never commit __pycache__, logs, temporary files, or IDE metadata.
 - Prefer small, logically grouped commits over large mixed commits.
+
+## Agent Design Rule
+
+Agents must never directly instantiate Tools.
+
+All Tool access must occur through ToolRegistry using dependency injection.
+
+This preserves loose coupling, enables tool replacement, and improves testability.

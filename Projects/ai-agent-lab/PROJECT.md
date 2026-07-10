@@ -605,18 +605,20 @@ The runtime will execute a complete multi-agent workflow using mock implementati
 - Component Registry
 - Runtime Orchestrator
 
-### Runtime Components
-- ✅ Mock Web Search Tool
-- ⏳ Mock Research Agent
-- ⏳ Mock Summary Agent
-- ⏳ Mock PDF Agent
+### Runtime Components ✅
+- Mock Web Search Tool
+- Mock Research Agent
 
-### End-to-End Runtime
-- ⏳ Execution Pipeline
-- ⏳ Smoke Tests
+### Remaining
+- Root Agent
+- Mock Summary Agent
+- Mock PDF Tool
+- Runtime Wiring
+- End-to-End Smoke Test
 
 ### Future
 - Real Web Search
+- Real LLM Integration
 - Real PDF Generation
 - PUVINoise SDK Integration
 
