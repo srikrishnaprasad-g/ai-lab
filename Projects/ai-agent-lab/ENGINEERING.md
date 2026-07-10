@@ -115,6 +115,16 @@ This is different from pytest.
 
 These are executable developer diagnostics.
 
+### Runtime Validation Rule
+
+After every change to a dataclass, package API, or runtime contract:
+
+1. Exit any running Python REPL.
+2. Start a fresh Python interpreter.
+3. Re-run import and runtime validation.
+
+Do not rely on an existing REPL session after modifying source files.
+
 # Regression Suite Convention
 
 Example Requests

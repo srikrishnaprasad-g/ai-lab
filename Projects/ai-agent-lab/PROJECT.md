@@ -598,19 +598,27 @@ The runtime will execute a complete multi-agent workflow using mock implementati
 
 ## Sprint 2 Progress
 
-### Completed
-- Provider abstraction
-- Configuration layer
-- Agent framework
-- Tool framework
-- RequestContext runtime model
+### Runtime Foundation ✅
+- Agent Framework
+- Tool Framework
+- Request Context
+- Component Registry
+- Runtime Orchestrator
 
-### Remaining
-- Registry framework
-- Orchestrator
-- Mock agents
-- Mock tools
-- End-to-end smoke test
+### Runtime Components
+- ✅ Mock Web Search Tool
+- ⏳ Mock Research Agent
+- ⏳ Mock Summary Agent
+- ⏳ Mock PDF Agent
+
+### End-to-End Runtime
+- ⏳ Execution Pipeline
+- ⏳ Smoke Tests
+
+### Future
+- Real Web Search
+- Real PDF Generation
+- PUVINoise SDK Integration
 
 Looking Ahead – Sprint 3 (Preview)
 
