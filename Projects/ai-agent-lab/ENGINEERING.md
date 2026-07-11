@@ -189,3 +189,19 @@ Whenever a new Agent or Tool is introduced:
 1. Register it through the appropriate Registry.
 2. Validate it through the RuntimeOrchestrator.
 3. Do not validate components in isolation if they are intended to participate in the runtime workflow.
+
+##Validation Policy
+
+Every commit must satisfy:
+
+1. py_compile succeeds
+
+2. Runtime smoke test passes
+
+python scripts/test_runtime_workflow.py
+
+3. Architecture review completed
+
+4. No broken imports
+
+5. Git status clean before commit
