@@ -3,7 +3,9 @@
 from registry.agent_registry import AgentRegistry
 from registry.tool_registry import ToolRegistry
 from tools.mock.mock_web_search_tool import MockWebSearchTool
+from tools.pdf.mock_pdf_tool import MockPDFTool
 from agents.mock.mock_research_agent import MockResearchAgent
+from agents.summary.mock_summary_agent import MockSummaryAgent
 from agents.root.root_agent import RootAgent
 from runtime.orchestrator import RuntimeOrchestrator
 
@@ -24,12 +26,16 @@ class RuntimeBootstrap:
 
         # Register tools
         tool_registry.register(MockWebSearchTool())
+        tool_registry.register(MockPDFTool())
 
         # Create and register agents
         research_agent = MockResearchAgent(tool_registry=tool_registry)
         agent_registry.register(research_agent)
 
-        root_agent = RootAgent(agent_registry=agent_registry)
+        summary_agent = MockSummaryAgent()
+        agent_registry.register(summary_agent)
+
+        root_agent = RootAgent(agent_registry=agent_registry, tool_registry=tool_registry)
         agent_registry.register(root_agent)
 
         # Create orchestrator
