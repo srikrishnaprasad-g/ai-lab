@@ -50,6 +50,14 @@ class Settings:
         default=LogLevel.INFO,
         metadata={"env_var": "LOG_LEVEL"},
     )
+    default_search_provider: str = field(
+        default="duckduckgo",
+        metadata={"env_var": "DEFAULT_SEARCH_PROVIDER"},
+    )
+    default_search_max_results: int = field(
+        default=3,
+        metadata={"env_var": "DEFAULT_SEARCH_MAX_RESULTS"},
+    )
 
     def __post_init__(self):
         """Post-initialization validation and environment variable loading."""
