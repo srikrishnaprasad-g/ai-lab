@@ -58,6 +58,14 @@ class Settings:
         default=3,
         metadata={"env_var": "DEFAULT_SEARCH_MAX_RESULTS"},
     )
+    default_llm_provider: str = field(
+        default="mock",
+        metadata={"env_var": "DEFAULT_LLM_PROVIDER"},
+    )
+    default_llm_model: str = field(
+        default="mock-model",
+        metadata={"env_var": "DEFAULT_LLM_MODEL"},
+    )
 
     def __post_init__(self):
         """Post-initialization validation and environment variable loading."""

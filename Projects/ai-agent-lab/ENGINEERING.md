@@ -36,7 +36,7 @@ Roles:
 - Claude Code: Software Engineer
 - User: Product Owner / Engineering Manager
 
-Claude Code should:
+Claude Code/Gemini CLI should:
 - implement code
 - explain design decisions
 - perform self-review
@@ -91,7 +91,7 @@ A task is complete only if:
 Every implementation must satisfy all of the following before commit:
 
 - Architecture reviewed
-- Claude self-review completed
+- Claude/Gemini CLI self-review completed
 - Code compiles (`python -m py_compile`)
 - Imports validated
 - No TODOs blocking current sprint
@@ -205,3 +205,11 @@ python scripts/test_runtime_workflow.py
 4. No broken imports
 
 5. Git status clean before commit
+
+## Provider Architecture
+
+External services (LLMs, Search, OCR, Storage, etc.) must always be accessed through provider abstractions.
+
+Components (Agents, Tools, Runtime) must depend on provider interfaces rather than concrete implementations.
+
+Configuration must be resolved during RuntimeBootstrap and injected into components via constructors. Components must never read application settings directly.

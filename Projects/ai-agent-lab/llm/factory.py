@@ -1,48 +1,36 @@
-'''Provider factory module.
-'''
+"""LLM provider factory."""
 
-from llm.llm_provider import LLMProvider
+from typing import Type
 from config.settings import Settings
-
-
-from llm.gemini_provider import GeminiProvider
-from llm.groq_provider import GroqProvider
+from llm.exceptions import UnsupportedLLMProviderError
+from llm.llm_provider import LLMProvider
+from llm.providers.mock_provider import MockLLMProvider
+from llm.providers.gemini_provider import GeminiProvider
+from llm.providers.groq_provider import GroqProvider
+from llm.providers.openrouter_provider import OpenRouterProvider
 
 
 class LLMProviderFactory:
-    """
-    Factory class for creating LLMProvider instances.
+    """Factory for creating LLM provider instances."""
 
-    This factory is responsible for instantiating the correct LLM provider
-    based on the application settings.
-    """
+    _PROVIDER_REGISTRY: dict[str, Type[LLMProvider]] = {
+        "mock": MockLLMProvider,
+        "gemini": GeminiProvider,
+        "groq": GroqProvider,
+        "openrouter": OpenRouterProvider,
+    }
 
     def __init__(self, settings: Settings) -> None:
-        """Initializes the ProviderFactory with application settings.
+        """Initializes the factory with settings."""
+        self._settings = settings
 
-        Args:
-            settings: The application settings object.
-        """
-        self.settings = settings
+    def create_provider(self, provider_name: str | None = None) -> LLMProvider:
+        """Creates an LLM provider instance."""
+        if provider_name is None:
+            provider_name = self._settings.default_llm_provider
 
-    def create_provider(self) -> LLMProvider:
-        """Creates and returns an LLMProvider instance based on the default configuration.
+        provider_cls = self._PROVIDER_REGISTRY.get(provider_name)
+        if provider_cls:
+            return provider_cls()
 
-        Raises:
-            ValueError: If the configured default provider is unsupported.
-
-        Returns:
-            An instance of an LLMProvider.
-        """
-        provider_name = self.settings.default_provider.strip().lower()
-
-        if provider_name == "gemini":
-            return GeminiProvider(api_key=self.settings.get_gemini_api_key(), model=self.settings.default_model)
-        elif provider_name == "groq":
-            return GroqProvider(api_key=self.settings.get_groq_api_key(), model=self.settings.default_model)
-        # TODO: Add registration for new providers here
-        # elif provider_name == "openai":
-        #     return OpenAIProvider(settings=self.settings)
-        else:
-            raise ValueError(f"Unsupported LLM provider: {provider_name}")
-
+        raise UnsupportedLLMProviderError(f"Unsupported provider: {provider_name}")
