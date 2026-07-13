@@ -7,6 +7,7 @@ from typing import TYPE_CHECKING
 from agents.agent import Agent
 from agents.agent_result import AgentResult
 from context.execution_event import ExecutionEvent
+from context import keys
 
 if TYPE_CHECKING:
     from context.request_context import RequestContext
@@ -26,13 +27,14 @@ class MockSummaryAgent(Agent):
     def execute(self, context: "RequestContext") -> AgentResult:
         """Executes the mock summarization process."""
         # Read search results
-        search_results = context.working_memory.get("search_results", [])
+        search_response = context.working_memory.get(keys.SEARCH_RESPONSE)
+        search_results = search_response.results if search_response else []
         
         # Build summary
         summary = f"Summarized {len(search_results)} search results into a final report."
 
         # Store summary in memory
-        context.working_memory["final_summary"] = summary
+        context.working_memory[keys.FINAL_SUMMARY] = summary
 
         # Append execution event
         event = ExecutionEvent(

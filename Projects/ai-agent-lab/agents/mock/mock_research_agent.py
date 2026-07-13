@@ -7,6 +7,7 @@ from typing import TYPE_CHECKING
 from agents.agent import Agent
 from agents.agent_result import AgentResult
 from context.execution_event import ExecutionEvent
+from context import keys
 from registry.tool_registry import ToolRegistry
 
 if TYPE_CHECKING:
@@ -35,15 +36,17 @@ class MockResearchAgent(Agent):
     def execute(self, context: "RequestContext") -> AgentResult:
         """Executes the mock research process."""
         # Retrieve and execute tool
-        search_tool = self._tool_registry.get("mock_web_search")
+        # Changed "mock_web_search" to "web_search" as required by refinement 1.
+        search_tool = self._tool_registry.get("web_search")
         search_tool.execute(context)
 
-        # Read results and build summary
-        search_results = context.working_memory.get("search_results", [])
-        summary = "Research results:\n" + "\n".join([f"- {r['title']}" for r in search_results])
+        # Read search response and build summary
+        search_response = context.working_memory.get(keys.SEARCH_RESPONSE)
+        search_results = search_response.results if search_response else []
+        summary = "Research results:\n" + "\n".join([f"- {r.title}" for r in search_results])
 
         # Store summary in memory
-        context.working_memory["research_summary"] = summary
+        context.working_memory[keys.RESEARCH_SUMMARY] = summary
 
         # Append execution event
         event = ExecutionEvent(

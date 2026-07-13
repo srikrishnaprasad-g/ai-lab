@@ -10,6 +10,7 @@ if str(PROJECT_ROOT) not in sys.path:
 
 import sys
 from runtime.bootstrap import RuntimeBootstrap
+from context import keys
 
 
 def run_smoke_test() -> None:
@@ -32,11 +33,11 @@ def run_smoke_test() -> None:
         errors.append("Runtime result success is False")
 
     # 2. Validate memory
-    if "search_results" not in context.working_memory:
-        errors.append("search_results missing from memory")
-    if "research_summary" not in context.working_memory:
+    if keys.SEARCH_RESPONSE not in context.working_memory:
+        errors.append("SEARCH_RESPONSE missing from memory")
+    if keys.RESEARCH_SUMMARY not in context.working_memory:
         errors.append("research_summary missing from memory")
-    if "final_summary" not in context.working_memory:
+    if keys.FINAL_SUMMARY not in context.working_memory:
         errors.append("final_summary missing from memory")
 
     # 3. Validate artifacts
@@ -47,7 +48,7 @@ def run_smoke_test() -> None:
 
     # 4. Validate trace
     # Expected order: web search, research, summary, pdf, root
-    expected_components = ["mock_web_search", "mock_research_agent", "mock_summary_agent", "mock_pdf_tool", "root"]
+    expected_components = ["web_search", "mock_research_agent", "mock_summary_agent", "mock_pdf_tool", "root"]
     actual_components = [event.component for event in context.execution_trace]
     
     if actual_components != expected_components:

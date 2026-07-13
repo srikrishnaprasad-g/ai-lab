@@ -8,6 +8,7 @@ from tools.tool import Tool
 from tools.tool_result import ToolResult
 from context.artifact import Artifact
 from context.execution_event import ExecutionEvent
+from context import keys
 
 if TYPE_CHECKING:
     from context.request_context import RequestContext
@@ -26,7 +27,7 @@ class MockPDFTool(Tool):
 
     def execute(self, context: "RequestContext") -> ToolResult:
         """Executes the mock PDF generation."""
-        summary = context.working_memory.get("final_summary", "No summary available.")
+        summary = context.working_memory.get(keys.FINAL_SUMMARY, "No summary available.")
 
         # Create artifact
         artifact = Artifact(

@@ -1,8 +1,10 @@
 """Runtime bootstrap for assembling components."""
 
+from config.settings import load_settings
 from registry.agent_registry import AgentRegistry
 from registry.tool_registry import ToolRegistry
-from tools.mock.mock_web_search_tool import MockWebSearchTool
+from search.search_provider_factory import SearchProviderFactory
+from tools.search.web_search_tool import WebSearchTool
 from tools.pdf.mock_pdf_tool import MockPDFTool
 from agents.mock.mock_research_agent import MockResearchAgent
 from agents.summary.mock_summary_agent import MockSummaryAgent
@@ -20,12 +22,22 @@ class RuntimeBootstrap:
         Returns:
             An instantiated RuntimeOrchestrator.
         """
+        # Load settings and create factory
+        settings = load_settings()
+        search_provider_factory = SearchProviderFactory(settings)
+        search_provider = search_provider_factory.create_provider()
+
         # Create registries
         tool_registry = ToolRegistry()
         agent_registry = AgentRegistry()
 
         # Register tools
-        tool_registry.register(MockWebSearchTool())
+        tool_registry.register(
+            WebSearchTool(
+                search_provider=search_provider,
+                max_results=settings.default_search_max_results,
+            )
+        )
         tool_registry.register(MockPDFTool())
 
         # Create and register agents
