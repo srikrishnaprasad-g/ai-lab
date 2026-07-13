@@ -630,6 +630,17 @@ Prompt templates
 Agent reasoning
 Tool selection logic
 Report quality improvements
+
+### Sprint 3 Progress
+
+Completed:
+
+- Search Provider abstraction
+- WebSearchTool integration
+- LLM Provider abstraction
+- SummaryAgent migrated to provider-driven LLM execution
+- Runtime now executes:
+  Search → Research → LLM Summary → PDF
 ---
 
 # Future Roadmap

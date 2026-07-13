@@ -10,6 +10,7 @@ from agents.mock.mock_research_agent import MockResearchAgent
 from agents.summary.mock_summary_agent import MockSummaryAgent
 from agents.root.root_agent import RootAgent
 from runtime.orchestrator import RuntimeOrchestrator
+from llm.factory import LLMProviderFactory
 
 
 class RuntimeBootstrap:
@@ -26,6 +27,9 @@ class RuntimeBootstrap:
         settings = load_settings()
         search_provider_factory = SearchProviderFactory(settings)
         search_provider = search_provider_factory.create_provider()
+        
+        llm_provider_factory = LLMProviderFactory(settings)
+        llm_provider = llm_provider_factory.create_provider()
 
         # Create registries
         tool_registry = ToolRegistry()
@@ -44,7 +48,9 @@ class RuntimeBootstrap:
         research_agent = MockResearchAgent(tool_registry=tool_registry)
         agent_registry.register(research_agent)
 
-        summary_agent = MockSummaryAgent()
+        summary_agent = MockSummaryAgent(
+            llm_provider=llm_provider, default_model=settings.default_llm_model
+        )
         agent_registry.register(summary_agent)
 
         root_agent = RootAgent(agent_registry=agent_registry, tool_registry=tool_registry)

@@ -213,3 +213,13 @@ External services (LLMs, Search, OCR, Storage, etc.) must always be accessed thr
 Components (Agents, Tools, Runtime) must depend on provider interfaces rather than concrete implementations.
 
 Configuration must be resolved during RuntimeBootstrap and injected into components via constructors. Components must never read application settings directly.
+
+RuntimeBootstrap is the only composition root.
+
+Factories and Settings must only be used inside RuntimeBootstrap.
+
+Agents and Tools depend only on abstract provider interfaces.
+
+Configuration is injected through constructors.
+
+Providers are never instantiated directly inside business logic.
