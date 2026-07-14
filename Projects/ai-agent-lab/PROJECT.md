@@ -631,16 +631,29 @@ Agent reasoning
 Tool selection logic
 Report quality improvements
 
-### Sprint 3 Progress
+## Sprint 3 Progress
 
-Completed:
+Completed
 
-- Search Provider abstraction
-- WebSearchTool integration
-- LLM Provider abstraction
-- SummaryAgent migrated to provider-driven LLM execution
-- Runtime now executes:
-  Search → Research → LLM Summary → PDF
+- Search Provider Framework
+- Web Search Tool
+- LLM Provider Framework
+- Prompt Builder Framework
+- LLM-backed Summary Agent
+
+Current Runtime
+
+User Request
+      ↓
+Search
+      ↓
+Research
+      ↓
+Prompt Builder
+      ↓
+LLM
+      ↓
+PDF Artifact
 ---
 
 # Future Roadmap

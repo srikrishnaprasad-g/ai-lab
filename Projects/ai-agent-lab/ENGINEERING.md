@@ -208,18 +208,19 @@ python scripts/test_runtime_workflow.py
 
 ## Provider Architecture
 
-External services (LLMs, Search, OCR, Storage, etc.) must always be accessed through provider abstractions.
+- External services (LLMs, Search, OCR, Storage, etc.) must always be accessed through provider abstractions.
+- Components (Agents, Tools, Runtime) must depend on provider interfaces rather than concrete implementations.
+- Configuration must be resolved during RuntimeBootstrap and injected into components via constructors. Components must never read application settings directly.
+- RuntimeBootstrap is the only composition root.
+- Factories and Settings must only be used inside RuntimeBootstrap.
+- Agents and Tools depend only on abstract provider interfaces.
+- Configuration is injected through constructors.
+- Providers are never instantiated directly inside business logic.
 
-Components (Agents, Tools, Runtime) must depend on provider interfaces rather than concrete implementations.
+## Prompt Builder Principles
 
-Configuration must be resolved during RuntimeBootstrap and injected into components via constructors. Components must never read application settings directly.
-
-RuntimeBootstrap is the only composition root.
-
-Factories and Settings must only be used inside RuntimeBootstrap.
-
-Agents and Tools depend only on abstract provider interfaces.
-
-Configuration is injected through constructors.
-
-Providers are never instantiated directly inside business logic.
+- Prompt construction belongs exclusively to PromptBuilder implementations.
+- Agents orchestrate workflows.
+- PromptBuilders transform domain objects into PromptResult.
+- PromptBuilders must not depend on RequestContext.
+- PromptBuilders must never instantiate providers or access runtime state.

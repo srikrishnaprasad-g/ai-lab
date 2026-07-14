@@ -11,6 +11,7 @@ from agents.summary.mock_summary_agent import MockSummaryAgent
 from agents.root.root_agent import RootAgent
 from runtime.orchestrator import RuntimeOrchestrator
 from llm.factory import LLMProviderFactory
+from prompts.summary_prompt_builder import SummaryPromptBuilder
 
 
 class RuntimeBootstrap:
@@ -30,6 +31,8 @@ class RuntimeBootstrap:
         
         llm_provider_factory = LLMProviderFactory(settings)
         llm_provider = llm_provider_factory.create_provider()
+        
+        prompt_builder = SummaryPromptBuilder()
 
         # Create registries
         tool_registry = ToolRegistry()
@@ -49,7 +52,9 @@ class RuntimeBootstrap:
         agent_registry.register(research_agent)
 
         summary_agent = MockSummaryAgent(
-            llm_provider=llm_provider, default_model=settings.default_llm_model
+            llm_provider=llm_provider, 
+            default_model=settings.default_llm_model,
+            prompt_builder=prompt_builder
         )
         agent_registry.register(summary_agent)
 

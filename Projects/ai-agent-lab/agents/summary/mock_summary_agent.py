@@ -10,23 +10,26 @@ from context.execution_event import ExecutionEvent
 from context import keys
 from llm.llm_provider import LLMProvider
 from llm.llm_request import LLMRequest
+from prompts.prompt_builder import PromptBuilder
 
 if TYPE_CHECKING:
     from context.request_context import RequestContext
 
 
 class MockSummaryAgent(Agent):
-    """A mock implementation of a summary agent using an LLM provider."""
+    """A mock implementation of a summary agent using an LLM provider and prompt builder."""
 
-    def __init__(self, llm_provider: LLMProvider, default_model: str) -> None:
-        """Initializes the agent with an LLM provider and default model.
+    def __init__(self, llm_provider: LLMProvider, default_model: str, prompt_builder: PromptBuilder) -> None:
+        """Initializes the agent with an LLM provider, default model, and prompt builder.
 
         Args:
             llm_provider: The LLM provider to use for summarization.
             default_model: The default LLM model to use.
+            prompt_builder: The prompt builder to use for summarization.
         """
         self._llm_provider = llm_provider
         self._default_model = default_model
+        self._prompt_builder = prompt_builder
 
     def name(self) -> str:
         """Gets the name of the agent."""
@@ -34,22 +37,27 @@ class MockSummaryAgent(Agent):
 
     def description(self) -> str:
         """Gets a brief description of the agent."""
-        return "A mock summary agent that processes search results via LLM."
+        return "A mock summary agent that processes search results via LLM and prompt builder."
 
     def execute(self, context: "RequestContext") -> AgentResult:
         """Executes the summarization process using LLM."""
-        # Read search results
+        # Read search response
         search_response = context.working_memory.get(keys.SEARCH_RESPONSE)
-        search_results = search_response.results if search_response else []
+        if not search_response:
+             raise AgentExecutionError("SearchResponse missing from RequestContext.")
         
-        # Build prompt
-        prompt = "Summarize the following search results:\n" + "\n".join(
-            [f"- {r.title}: {r.snippet}" for r in search_results]
-        )
+        # Build prompt using PromptBuilder
+        prompt_result = self._prompt_builder.build(search_response)
 
         # Call LLM
+        # TODO:
+        # Pass PromptResult.system_prompt to LLMRequest
+        # once provider interfaces support system prompts.
         response = self._llm_provider.generate(
-            LLMRequest(prompt=prompt, model=self._default_model)
+            LLMRequest(
+                prompt=prompt_result.prompt, 
+                model=self._default_model
+            )
         )
 
         # Store summary in memory
@@ -78,6 +86,6 @@ class MockSummaryAgent(Agent):
             metadata={
                 "agent": self.name(),
                 "source": "mock",
-                "documents": len(search_results)
+                "documents": len(search_response.results)
             }
         )
