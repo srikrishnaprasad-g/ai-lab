@@ -12,6 +12,7 @@ from agents.root.root_agent import RootAgent
 from runtime.orchestrator import RuntimeOrchestrator
 from llm.factory import LLMProviderFactory
 from prompts.summary_prompt_builder import SummaryPromptBuilder
+from observability.telemetry_service import TelemetryService
 
 
 class RuntimeBootstrap:
@@ -33,6 +34,8 @@ class RuntimeBootstrap:
         llm_provider = llm_provider_factory.create_provider()
         
         prompt_builder = SummaryPromptBuilder()
+        
+        telemetry_service = TelemetryService()
 
         # Create registries
         tool_registry = ToolRegistry()
@@ -65,6 +68,7 @@ class RuntimeBootstrap:
         orchestrator = RuntimeOrchestrator(
             agent_registry=agent_registry,
             tool_registry=tool_registry,
+            telemetry_service=telemetry_service,
             root_agent=root_agent.name(),
         )
 

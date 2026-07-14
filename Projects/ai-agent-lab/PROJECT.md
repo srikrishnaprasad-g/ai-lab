@@ -633,13 +633,12 @@ Report quality improvements
 
 ## Sprint 3 Progress
 
-Completed
-
-- Search Provider Framework
-- Web Search Tool
-- LLM Provider Framework
-- Prompt Builder Framework
-- LLM-backed Summary Agent
+Completed:
+- Search Provider abstraction
+- LLM Provider abstraction
+- Prompt Builder framework
+- Runtime Observability framework
+- Runtime-managed telemetry
 
 Current Runtime
 

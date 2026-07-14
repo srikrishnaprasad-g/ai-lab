@@ -224,3 +224,25 @@ python scripts/test_runtime_workflow.py
 - PromptBuilders transform domain objects into PromptResult.
 - PromptBuilders must not depend on RequestContext.
 - PromptBuilders must never instantiate providers or access runtime state.
+
+## Observability
+
+- Observability is runtime-managed.
+- Agents, Tools and Providers must not contain telemetry logic.
+- TelemetryService is injected through RuntimeBootstrap.
+- RuntimeOrchestrator owns span lifecycle.
+
+## Timing
+
+- Use time.perf_counter() for latency measurements.
+- Do not use time.time() for execution duration.
+
+## Dependency Injection
+
+- All providers, builders and services are constructor injected.
+- Avoid singleton services.
+
+## Prompt Construction
+
+- Prompt construction belongs in PromptBuilder implementations.
+- Agents orchestrate; PromptBuilders format prompts.
