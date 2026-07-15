@@ -255,3 +255,20 @@ python scripts/test_runtime_workflow.py
 4. git status
 5. git add .
 6. git commit
+
+## HTTP Infrastructure
+
+All external HTTP communication must occur through HttpClient.
+
+Design principles:
+
+- Providers never call httpx directly.
+- Providers translate generic HTTP exceptions into domain-specific exceptions.
+- Runtime configuration flows:
+
+Settings
+→ ProviderConfig
+→ HttpClient
+→ Provider
+
+This allows the same HTTP infrastructure to be reused by Search Providers and LLM Providers.

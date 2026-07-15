@@ -10,4 +10,7 @@ class LLMRequest:
 
     prompt: str
     model: str | None = None
+    temperature: float | None = None
+    max_tokens: int | None = None
+    system_prompt: str | None = None
     metadata: dict[str, Any] = field(default_factory=dict)

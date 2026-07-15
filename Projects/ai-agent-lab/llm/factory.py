@@ -4,10 +4,12 @@ from typing import Type
 from config.settings import Settings
 from llm.exceptions import UnsupportedLLMProviderError
 from llm.llm_provider import LLMProvider
+from llm.llm_provider_config import LLMProviderConfig
 from llm.providers.mock_provider import MockLLMProvider
 from llm.providers.gemini_provider import GeminiProvider
 from llm.providers.groq_provider import GroqProvider
 from llm.providers.openrouter_provider import OpenRouterProvider
+from search.http_client import HttpClient
 
 
 class LLMProviderFactory:
@@ -31,6 +33,12 @@ class LLMProviderFactory:
 
         provider_cls = self._PROVIDER_REGISTRY.get(provider_name)
         if provider_cls:
-            return provider_cls()
+            # Create config and http client for the provider
+            config = LLMProviderConfig(
+                timeout=self._settings.default_llm_timeout,
+            )
+            http_client = HttpClient(timeout=config.timeout)
+            
+            return provider_cls(http_client, config)
 
         raise UnsupportedLLMProviderError(f"Unsupported provider: {provider_name}")

@@ -70,6 +70,10 @@ class Settings:
         default="mock-model",
         metadata={"env_var": "DEFAULT_LLM_MODEL"},
     )
+    default_llm_timeout: float = field(
+        default=30.0,
+        metadata={"env_var": "DEFAULT_LLM_TIMEOUT"},
+    )
 
     def __post_init__(self):
         """Post-initialization validation and environment variable loading."""

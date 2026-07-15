@@ -1,11 +1,11 @@
 """Mock LLM provider implementation."""
 
-from llm.llm_provider import LLMProvider
+from llm.llm_provider import BaseLLMProvider
 from llm.llm_request import LLMRequest
 from llm.llm_response import LLMResponse
 
 
-class MockLLMProvider(LLMProvider):
+class MockLLMProvider(BaseLLMProvider):
     """Deterministic mock implementation of LLM."""
 
     def provider_name(self) -> str:
