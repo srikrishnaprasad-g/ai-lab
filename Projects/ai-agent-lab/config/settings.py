@@ -58,6 +58,10 @@ class Settings:
         default=3,
         metadata={"env_var": "DEFAULT_SEARCH_MAX_RESULTS"},
     )
+    default_search_timeout: float = field(
+        default=10.0,
+        metadata={"env_var": "DEFAULT_SEARCH_TIMEOUT"},
+    )
     default_llm_provider: str = field(
         default="mock",
         metadata={"env_var": "DEFAULT_LLM_PROVIDER"},

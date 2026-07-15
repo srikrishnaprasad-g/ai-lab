@@ -246,3 +246,12 @@ python scripts/test_runtime_workflow.py
 
 - Prompt construction belongs in PromptBuilder implementations.
 - Agents orchestrate; PromptBuilders format prompts.
+
+##Validation Checklist
+
+1. python -m compileall .
+2. python scripts/test_runtime_workflow.py
+3. Run any task-specific validation.
+4. git status
+5. git add .
+6. git commit

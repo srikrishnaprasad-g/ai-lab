@@ -8,7 +8,7 @@ class SearchProvider(ABC):
     """Abstract base class defining the contract for all search providers."""
 
     @abstractmethod
-    def search(self, query: str, max_results: int) -> SearchResponse:
+    def search(self, query: str, max_results: int | None = None) -> SearchResponse:
         """Executes a search query."""
         pass
 
