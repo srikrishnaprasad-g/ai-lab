@@ -11,3 +11,4 @@ class LLMProviderConfig:
     api_version: str = "v1"
     base_url: str | None = None
     timeout: float = 30.0
+    model: str | None = None

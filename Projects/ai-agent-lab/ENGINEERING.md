@@ -272,3 +272,66 @@ Settings
 → Provider
 
 This allows the same HTTP infrastructure to be reused by Search Providers and LLM Providers.
+
+## Engineering Notes – Sprint 3.8
+
+### Configuration Refactor
+
+The LLM configuration layer was simplified to eliminate duplicate configuration paths.
+
+Changes:
+
+- Introduced `DEFAULT_LLM_PROVIDER`
+- Introduced `DEFAULT_LLM_MODEL`
+- Introduced `DEFAULT_LLM_TIMEOUT`
+- Removed legacy provider/model configuration
+- Added explicit model support to `LLMProviderConfig`
+
+### Provider Architecture
+
+Current architecture:
+
+Settings
+↓
+LLMProviderFactory
+↓
+LLMProviderConfig
+↓
+Provider
+↓
+HttpClient
+↓
+Provider API
+↓
+ResponseMapper
+↓
+LLMResponse
+
+All providers should follow this architecture.
+
+### Gemini Provider
+
+Implemented production Gemini integration.
+
+Features:
+
+- configurable model
+- configurable timeout
+- configurable API version
+- configurable base URL
+- centralized authentication
+- standardized response mapping
+- provider-specific exception handling
+
+### Lessons Learned
+
+During implementation several architectural issues were discovered and resolved:
+
+- Optional (`str | None`) environment variable parsing
+- deterministic `.env` loading
+- provider configuration duplication
+- hardcoded provider model
+- package import inconsistencies
+- provider factory wiring
+
+These improvements now make adding future providers (Groq, OpenAI, OpenRouter, Anthropic, Ollama) straightforward.

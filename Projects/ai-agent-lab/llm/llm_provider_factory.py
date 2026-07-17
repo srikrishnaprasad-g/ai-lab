@@ -33,9 +33,18 @@ class LLMProviderFactory:
 
         provider_cls = self._PROVIDER_REGISTRY.get(provider_name)
         if provider_cls:
+            # Resolve API key based on provider
+            api_key = None
+            if provider_name == "gemini":
+                api_key = self._settings.get_gemini_api_key()
+            elif provider_name == "groq":
+                api_key = self._settings.get_groq_api_key()
+                
             # Create config and http client for the provider
             config = LLMProviderConfig(
                 timeout=self._settings.default_llm_timeout,
+                model=self._settings.default_llm_model,
+                api_key=api_key
             )
             http_client = HttpClient(timeout=config.timeout)
             

@@ -2,6 +2,7 @@
 
 from typing import Any
 from llm.llm_response import LLMResponse
+from llm.exceptions import LLMResponseParseError
 
 
 class GeminiResponseMapper:
@@ -10,18 +11,25 @@ class GeminiResponseMapper:
     @staticmethod
     def map_response(data: dict[str, Any], model: str) -> LLMResponse:
         """Maps Gemini JSON response to LLMResponse."""
-        # Simple placeholder mapping logic as per requirements
-        # (Real mapping will be implemented in Task 3.8)
-        content = data.get("content", "No content")
-        metadata = {
-            "finish_reason": data.get("finish_reason"),
-            "token_usage": data.get("usageMetadata"),
-            "raw_provider_metadata": data,
-        }
-        
-        return LLMResponse(
-            content=content,
-            model=model,
-            provider="gemini",
-            metadata=metadata
-        )
+        try:
+            candidates = data.get("candidates", [])
+            if not candidates:
+                raise LLMResponseParseError("No candidates in response")
+
+            candidate = candidates[0]
+            content = candidate.get("content", {}).get("parts", [{}])[0].get("text", "")
+            
+            metadata = {
+                "finish_reason": candidate.get("finishReason"),
+                "token_usage": data.get("usageMetadata"),
+                "raw_provider_metadata": data,
+            }
+            
+            return LLMResponse(
+                content=content,
+                model=model,
+                provider="gemini",
+                metadata=metadata
+            )
+        except (KeyError, IndexError, TypeError) as e:
+            raise LLMResponseParseError(f"Failed to parse Gemini response: {e}") from e

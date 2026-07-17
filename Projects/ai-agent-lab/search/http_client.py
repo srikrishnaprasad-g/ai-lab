@@ -18,6 +18,8 @@ class HttpClient:
             return response.json()
         except httpx.TimeoutException as e:
             raise HTTPTimeoutError(f"Request timed out: {e}") from e
+        except httpx.HTTPStatusError as e:
+            raise HTTPRequestError(f"HTTP error occurred: {e}", status_code=e.response.status_code) from e
         except httpx.HTTPError as e:
             raise HTTPRequestError(f"HTTP error occurred: {e}") from e
 
@@ -29,6 +31,8 @@ class HttpClient:
             return response.json()
         except httpx.TimeoutException as e:
             raise HTTPTimeoutError(f"Request timed out: {e}") from e
+        except httpx.HTTPStatusError as e:
+            raise HTTPRequestError(f"HTTP error occurred: {e}", status_code=e.response.status_code) from e
         except httpx.HTTPError as e:
             raise HTTPRequestError(f"HTTP error occurred: {e}") from e
 
