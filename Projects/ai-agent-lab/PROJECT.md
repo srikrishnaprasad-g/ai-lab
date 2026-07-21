@@ -699,6 +699,59 @@ LLM
 PDF Artifact
 ---
 
+# Sprint 3.5 – Repository Health & Architecture Audit
+
+## Objective
+
+Conduct a comprehensive repository-wide audit after Sprint 3 implementation to ensure the codebase remains clean, consistent, maintainable, and aligned with the project architecture before beginning Sprint 4.
+
+## Deliverables
+
+### Critical
+- Fix broken imports
+- Remove dead code
+- Remove duplicate files
+- Remove obsolete implementations
+- Validate configuration consistency
+- Validate package structure
+
+### Recommended
+- Naming consistency
+- Folder organization
+- Documentation improvements
+- TODO review
+- Code simplification
+
+### Future
+- Architectural improvements
+- Refactoring opportunities
+- Performance improvements
+- Plugin architecture enhancements
+- Dependency Injection opportunities
+
+## Exit Criteria
+
+No Critical issues remain open.
+
+Recommended and Future items are documented and tracked.
+
+## Sprint Exit Criteria
+
+A sprint is complete only when:
+
+- Feature implementation is complete.
+- Runtime validation passes.
+- Smoke tests pass.
+- Repository Health Audit completed.
+- All Critical findings resolved.
+- Documentation updated.
+- Technical Debt updated.
+- Recommendations Register updated.
+- Future Register updated.
+- Git commit created.
+- Git tag created.
+----
+
 # Future Roadmap
 
 Phase 2
@@ -738,3 +791,221 @@ The project should eventually demonstrate:
 - Error recovery
 - Parallel execution
 - Rich telemetry inside PUVINoise
+
+----
+
+# Sprint Governance
+
+Every sprint follows the same lifecycle:
+
+Planning
+↓
+Architecture Review
+↓
+Implementation
+↓
+Validation
+↓
+Sprint X.5 Repository Health Audit
+↓
+Critical Issue Resolution
+↓
+Documentation Update
+↓
+Git Commit
+↓
+Git Tag
+↓
+Sprint Close
+
+---
+
+# Repository Health Policy
+
+Every sprint concludes with a Repository Health Audit.
+
+Repository findings are classified into:
+
+## Critical
+
+Must be fixed before the sprint can close.
+
+Examples:
+
+- Broken imports
+- Dead code
+- Duplicate implementations
+- Invalid package structure
+- Runtime failures
+- Obsolete files
+- Configuration inconsistencies
+
+Sprint cannot be completed until all Critical findings are resolved.
+
+## Recommended
+
+Quality improvements that should be scheduled.
+
+Examples:
+
+- Naming consistency
+- Documentation improvements
+- Folder organization
+- Simplification
+- Test improvements
+
+These items are tracked in the Recommendations Register.
+
+## Future
+
+Architectural improvements that are intentionally deferred.
+
+Examples:
+
+- Dependency Injection improvements
+- Plugin architecture
+- Performance optimization
+- Framework enhancements
+
+These items are tracked in the Future Architecture Register.
+
+----
+
+Sprint 3.5 – Repository Health & Architecture Governance ✅
+
+Objectives
+- Repository-wide engineering audit
+- Architecture audit
+- Critical cleanup
+- Governance refinement
+- Technical debt classification
+- Sprint retrospective
+
+Outcome
+- Repository health validated
+- Critical issues resolved
+- Architecture approved
+- Governance process established
+
+Exit Criteria
+- All Critical findings resolved
+- Deferred items recorded
+- Architecture approved
+- Sprint formally closed
+
+-------
+
+Sprint 4 – Intelligent Agent Orchestration
+
+Goal
+
+Transition the runtime from static workflow execution to
+dynamic intelligent orchestration.
+
+Key Deliverables
+
+- Execution Pipeline
+
+- Planning Layer
+
+- Agent Contract
+
+- AgentResult
+
+- Runtime Orchestration
+
+- Context Evolution
+
+- Failure Policies
+
+Success Criteria
+
+A user request should dynamically execute multiple agents,
+maintain context,
+capture telemetry,
+handle retries,
+and terminate correctly.
+
+Architecture Freeze
+
+No infrastructure redesign is allowed during Sprint 4 unless
+required for implementation.
+
+------
+
+Sprint 4 Deliverables
+
+| ID  | Deliverable                | Priority |
+| --- | -------------------------- | -------- |
+| 4.1 | Agent Lifecycle Framework  | Critical |
+| 4.2 | Intelligent Orchestrator   | Critical |
+| 4.3 | Context Evolution          | Critical |
+| 4.4 | Execution Policies         | High     |
+| 4.5 | Failure Handling           | High     |
+| 4.6 | Runtime Validation         | High     |
+| 4.7 | Observability Enhancements | Medium   |
+| 4.8 | Sprint Retrospective       | Required |
+
+-----
+
+Sprint 4 Success Criteria
+
+Given:
+
+User asks:
+
+"Research OpenAI GPT-5 and create a PDF summary."
+
+Runtime should:
+
+✓ choose Research Agent
+
+✓ update context
+
+✓ call Search Tool
+
+✓ call LLM
+
+✓ call Summary Agent
+
+✓ call PDF Tool
+
+✓ publish telemetry
+
+✓ return final artifact
+------
+
+Sprint 4 Architecture Freeze
+
+Status:
+Approved
+
+Architecture Version:
+v1.0
+
+Approved On:
+21-JUL-2026
+
+Changes to runtime architecture during Sprint 4 are prohibited unless:
+
+1. A blocker prevents implementation.
+2. An approved ADR requires modification.
+
+All other architectural ideas must be recorded in the Future Architecture Register and reviewed during Sprint 4.5.
+
+------
+
+Sprint 4 Implementation order
+
+| Task                            | Status  |
+| ------------------------------- | ------- |
+| **4.1** Runtime Contracts       | First   |
+| **4.2** Execution Pipeline      | Second  |
+| **4.3** Hierarchical Telemetry  | Third   |
+| **4.4** Task Planner            | Fourth  |
+| **4.5** Runtime Orchestrator    | Fifth   |
+| **4.6** RuntimeBootstrap Wiring | Sixth   |
+| **4.7** Integration Tests       | Seventh |
+| **4.8** ADR & Documentation     | Last    |
+
+------

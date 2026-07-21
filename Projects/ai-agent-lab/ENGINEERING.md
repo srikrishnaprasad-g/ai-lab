@@ -80,22 +80,64 @@ Keep commits focused.
 
 # Definition of Done
 
-A task is complete only if:
+A task is complete only when ALL of the following are satisfied.
 
-- Requirements are satisfied.
-- Code is readable.
-- No unnecessary complexity.
-- Self-review completed.
-- Ready to commit.
+## Design
 
-Every implementation must satisfy all of the following before commit:
-
+- Requirement understood
 - Architecture reviewed
-- Claude/Gemini CLI self-review completed
-- Code compiles (`python -m py_compile`)
+- Existing implementation reviewed
+
+## Implementation
+
+- Code complete
+- Type hints added
+- Docstrings added
+- Error handling implemented
+
+## Validation
+
+- Compile succeeds
 - Imports validated
-- No TODOs blocking current sprint
-- Git commit created with meaningful message
+- Runtime validation passes
+- Smoke test passes
+
+## Repository
+
+- Repository health reviewed
+- No Critical issues introduced
+- Git status clean
+
+## Documentation
+
+- PROJECT.md updated
+- ENGINEERING.md updated
+- DECISIONS.md updated (if architecture changed)
+- GEMINI.md updated (if workflow changed)
+
+## Technical Debt
+
+- New debt recorded
+- Recommendations recorded
+- Future improvements recorded
+
+## Delivery
+
+- Git commit
+- Git tag
+
+Sprint 4+
+
+Architecture compliance
+
+Agent contract compliance
+
+Execution pipeline validation
+
+Planning validation
+
+Integration validation
+-----
 
 # Verification Suite Convention
 
@@ -335,3 +377,179 @@ During implementation several architectural issues were discovered and resolved:
 - provider factory wiring
 
 These improvements now make adding future providers (Groq, OpenAI, OpenRouter, Anthropic, Ollama) straightforward.
+
+# Engineering Guard Rails
+
+The following rules apply to every implementation.
+
+## Configuration
+
+- Configuration must have a single source of truth.
+- Duplicate configuration paths are prohibited.
+- Components must never read environment variables directly.
+
+## Dependency Injection
+
+- RuntimeBootstrap is the composition root.
+- Factories are only used by RuntimeBootstrap.
+- Business logic must never instantiate providers.
+
+## Providers
+
+- Providers own external communication.
+- Business logic never calls HTTP clients directly.
+- Provider-specific logic never leaks into Agents or Tools.
+
+## Imports
+
+- No broken imports.
+- No circular imports.
+- Package exports must remain consistent.
+
+## Files
+
+- No duplicate implementations.
+- No obsolete files.
+- No commented-out code.
+- No dead code.
+
+## Documentation
+
+Architecture changes require updates to:
+
+- PROJECT.md
+- ENGINEERING.md
+- DECISIONS.md
+
+Implementation changes affecting AI workflows require GEMINI.md updates.
+
+-----
+# Technical Debt Register
+
+| ID | Description | Priority | Status | Target Sprint |
+|----|-------------|----------|--------|---------------|
+
+Example
+
+TD-001
+
+Move HttpClient to infra package
+
+Medium
+
+Open
+
+Sprint 6
+
+-----
+
+# Recommendations Register
+
+| ID | Recommendation | Status | Sprint |
+|----|---------------|--------|--------|
+
+Status
+
+Open
+Accepted
+Rejected
+Completed
+
+------
+
+# Future Architecture Register
+
+| ID | Improvement | Planned Sprint | Status |
+
+-------
+
+# Runtime Responsibilities
+
+Runtime owns:
+
+- orchestration
+- planning
+- lifecycle
+- retries
+- telemetry
+- execution policies
+
+Agents own:
+
+- business logic
+- tool usage
+- context enrichment
+
+Agents must never perform orchestration.
+
+-------
+
+# Execution Pipeline
+
+All cross-cutting concerns execute through the pipeline.
+
+Examples
+
+Telemetry
+
+Retry
+
+Timeout
+
+Future
+
+Authorization
+
+Caching
+
+Rate Limiting
+
+Auditing
+
+------
+
+# Planning
+
+Planning determines
+
+WHAT executes.
+
+Execution determines
+
+HOW it executes.
+
+Agents perform
+
+THE WORK.
+
+These responsibilities must remain separate.
+
+-----
+
+# Agent Contract
+
+Every Agent must
+
+Validate Input
+
+Execute
+
+Return AgentResult
+
+Never select another agent
+
+Never terminate the workflow
+
+Never own orchestration.
+
+----- 
+
+# Runtime Contracts
+
+AgentId
+ExecutionAction
+ExecutionDecision
+AgentResult
+RuntimeResult
+
+-----

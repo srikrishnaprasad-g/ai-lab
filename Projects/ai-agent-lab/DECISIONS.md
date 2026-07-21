@@ -1,4 +1,18 @@
+# Decision Log
+
+| ADR     | Title                              | Status   |
+| ------- | ---------------------------------- | -------- |
+| ADR-001 | Stateless Tools                    | Accepted |
+| ADR-002 | RequestContext Ownership           | Accepted |
+| ADR-003 | Provider-Based Integration Pattern | Accepted |
+| ADR-004 | Repository Health Policy           | Accepted |
+| ADR-005 | Documentation Governance           | Accepted |
+| ADR-006 | Definition of Done                 | Accepted |
+
+-----
+
 # ADR-001
+
 Tools are stateless.
 Execution state belongs to RequestContext.
 ---
@@ -25,3 +39,165 @@ Rationale:
 - Simplifies testing
 - Allows provider swapping without changing business logic
 - Keeps runtime components framework-agnostic
+
+-----
+
+ADR-004
+
+Repository Health is mandatory before sprint closure.
+
+Critical findings block sprint completion.
+
+Recommended and Future findings must be tracked.
+
+-----
+
+ADR-005
+
+PROJECT.md
+
+defines WHAT we build.
+
+ENGINEERING.md
+
+defines HOW we build.
+
+GEMINI.md
+
+defines HOW AI contributes.
+
+DECISIONS.md
+
+defines WHY architectural decisions were made.
+
+------
+
+ADR-006
+
+A task cannot be considered complete until:
+
+- Validation passes.
+- Documentation updated.
+- Repository reviewed.
+- Technical debt updated.
+
+-----
+ADR-007 - Incremental Architecture Evolution
+
+Decision
+
+The project adopts incremental architecture evolution.
+
+Principles
+
+Prefer extending existing abstractions.
+
+Avoid speculative abstractions.
+
+Avoid introducing new packages without immediate need.
+
+Favor backwards compatibility.
+
+Architecture changes should support current roadmap objectives.
+
+------
+
+ADR-008 – Architecture Freeze During Feature Sprints
+
+Decision:
+
+Infrastructure changes are prohibited during feature sprints unless required to support the planned functionality.
+
+Allowed:
+
+new agents
+new prompts
+new orchestration logic
+new tools
+
+Not allowed:
+
+moving packages
+renaming folders
+registry redesign
+dependency injection redesign
+configuration redesign
+
+------
+
+ADR 009 - Runtime owns Orchestration
+
+Decision
+
+Workflow orchestration belongs exclusively to the Runtime.
+
+Rationale
+
+Keeps agents reusable.
+
+Benefits
+
+Separation of concerns
+
+Simpler testing
+
+Predictable workflows
+
+----- 
+
+ADR 010 - Execution Pipeline
+
+Decision
+
+Cross-cutting runtime behaviors
+shall execute through the Execution Pipeline.
+
+Examples
+
+Retry
+
+Telemetry
+
+Timeout
+
+Future
+
+Caching
+
+Authorization
+
+Rate Limiting
+
+-----
+
+ADR 011 - Planning s Execution
+
+Decision
+
+Planning decides WHAT should happen.
+
+Execution decides HOW it happens.
+
+Agents perform the domain work.
+
+No component may combine all three responsibilities.
+
+-----
+
+ADR 012 — Stable Runtime Contracts
+
+Decision
+
+Core runtime contracts must remain stable across implementation sprints.
+
+Contracts include:
+
+RequestContext
+AgentId
+AgentResult
+ExecutionAction
+ExecutionDecision
+RuntimeResult
+
+-----
+

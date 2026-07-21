@@ -1,6 +1,7 @@
 """Generic Registry framework."""
 
-from typing import Generic, TypeVar, Protocol, Iterable
+from typing import Generic, TypeVar, Protocol
+from enum import Enum
 from registry.exceptions import DuplicateRegistrationError, ComponentNotFoundError
 
 
@@ -36,11 +37,11 @@ class Registry(Generic[T]):
             raise DuplicateRegistrationError(f"Component '{name}' already registered.")
         self._components[name] = component
 
-    def get(self, name: str) -> T:
+    def get(self, name: str | Enum) -> T:
         """Retrieves a component by name.
 
         Args:
-            name: The name of the component.
+            name: The name of the component (as str or Enum).
 
         Returns:
             The component.
@@ -48,9 +49,10 @@ class Registry(Generic[T]):
         Raises:
             ComponentNotFoundError: If the component does not exist.
         """
-        if name not in self._components:
-            raise ComponentNotFoundError(f"Component '{name}' not found.")
-        return self._components[name]
+        lookup_name = name.value if isinstance(name, Enum) else name
+        if lookup_name not in self._components:
+            raise ComponentNotFoundError(f"Component '{lookup_name}' not found.")
+        return self._components[lookup_name]
 
     def exists(self, name: str) -> bool:
         """Checks if a component exists.

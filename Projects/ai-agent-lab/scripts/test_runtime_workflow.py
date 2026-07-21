@@ -11,6 +11,7 @@ if str(PROJECT_ROOT) not in sys.path:
 import sys
 from runtime.bootstrap import RuntimeBootstrap
 from context import keys
+from registry.tool_id import ToolId
 
 
 def run_smoke_test() -> None:
@@ -48,7 +49,7 @@ def run_smoke_test() -> None:
 
     # 4. Validate trace
     # Expected order: web search, research, summary, pdf, root
-    expected_components = ["web_search", "mock_research_agent", "mock_summary_agent", "mock_pdf_tool", "root"]
+    expected_components = [ToolId.WEB_SEARCH.value, "mock_research_agent", "mock_summary_agent", ToolId.PDF.value, "root"]
     actual_components = [event.component for event in context.execution_trace]
     
     if actual_components != expected_components:

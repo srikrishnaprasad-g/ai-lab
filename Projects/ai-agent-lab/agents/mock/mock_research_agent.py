@@ -9,6 +9,7 @@ from agents.agent_result import AgentResult
 from context.execution_event import ExecutionEvent
 from context import keys
 from registry.tool_registry import ToolRegistry
+from registry.tool_id import ToolId
 
 if TYPE_CHECKING:
     from context.request_context import RequestContext
@@ -37,7 +38,7 @@ class MockResearchAgent(Agent):
         """Executes the mock research process."""
         # Retrieve and execute tool
         # Changed "mock_web_search" to "web_search" as required by refinement 1.
-        search_tool = self._tool_registry.get("web_search")
+        search_tool = self._tool_registry.get(ToolId.WEB_SEARCH)
         search_tool.execute(context)
 
         # Read search response and build summary
