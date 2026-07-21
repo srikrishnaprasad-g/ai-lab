@@ -10,7 +10,7 @@ from agents.mock.mock_research_agent import MockResearchAgent
 from agents.summary.mock_summary_agent import MockSummaryAgent
 from agents.root.root_agent import RootAgent
 from runtime.orchestrator import RuntimeOrchestrator
-from llm.factory import LLMProviderFactory
+from llm.llm_provider_factory import LLMProviderFactory
 from prompts.summary_prompt_builder import SummaryPromptBuilder
 from observability.telemetry_service import TelemetryService
 
