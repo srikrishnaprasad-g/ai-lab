@@ -11,6 +11,10 @@ from registry.tool_registry import ToolRegistry
 from agents.agent_factory import AgentFactory
 from tools.search.web_search_tool import WebSearchTool
 from search.providers.mock_search_provider import MockSearchProvider
+from prompts.prompt_registry import PromptRegistry
+from prompts.prompt_builder import DefaultPromptBuilder
+from prompts.templates import RESEARCH_TEMPLATE, SUMMARIZATION_TEMPLATE, WRITING_TEMPLATE
+from llm.providers.mock_llm_provider import MockLLMProvider
 
 
 class RuntimeBootstrap:
@@ -36,20 +40,30 @@ class RuntimeBootstrap:
         # 4. Planner
         planner = TaskPlanner()
         
-        # 5. Tool Framework
+        # 5. Prompt Framework
+        prompt_registry = PromptRegistry()
+        prompt_registry.register(RESEARCH_TEMPLATE)
+        prompt_registry.register(SUMMARIZATION_TEMPLATE)
+        prompt_registry.register(WRITING_TEMPLATE)
+        prompt_builder = DefaultPromptBuilder(prompt_registry)
+        
+        # 6. LLM Provider
+        llm_provider = MockLLMProvider()
+        
+        # 7. Tool Framework
         tool_registry = ToolRegistry()
         search_provider = MockSearchProvider()
         web_search_tool = WebSearchTool(search_provider, max_results=5)
         tool_registry.register(web_search_tool)
         
-        # 6. Agent Framework
+        # 8. Agent Framework
         agent_registry = AgentRegistry()
-        agent_factory = AgentFactory(telemetry_service, tool_registry)
+        agent_factory = AgentFactory(telemetry_service, tool_registry, prompt_builder, llm_provider)
         
         research_agent = agent_factory.create_research_agent()
         agent_registry.register(research_agent)
         
-        # 7. Orchestrator
+        # 9. Orchestrator
         orchestrator = RuntimeOrchestrator(planner, pipeline, agent_registry)
         
         return orchestrator

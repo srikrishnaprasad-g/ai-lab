@@ -1,7 +1,8 @@
 """Mock LLM provider implementation."""
 
 from llm.llm_provider import LLMProvider
-from llm.llm_request import LLMRequest, LLMResponse
+from llm.llm_request import LLMRequest
+from llm.llm_response import LLMResponse
 
 
 class MockLLMProvider(LLMProvider):
@@ -14,6 +15,7 @@ class MockLLMProvider(LLMProvider):
     def generate(self, request: LLMRequest) -> LLMResponse:
         """Returns deterministic mock LLM response."""
         return LLMResponse(
-            text=f"Mock response for: {request.prompt}",
-            model=request.model or "mock-model"
+            content=f"Mock response for: {request.prompt}",
+            model=request.model or "mock-model",
+            provider="mock"
         )
