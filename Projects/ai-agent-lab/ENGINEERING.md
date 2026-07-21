@@ -195,13 +195,15 @@ Every implementation prompt should begin with:
 
 Prompts should request only one logical task.
 
-# Documentation Rules
+## Documentation Rules
 
 Whenever architecture changes:
 
 - Update PROJECT.md.
 - Update ENGINEERING.md if engineering practices change.
 - Update README.md if setup changes.
+- Update TECHNICAL_DEBT.md if new technical debt is introduced or resolved.
+
 
 Write the document in professional Markdown suitable for an open-source project.
 

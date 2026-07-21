@@ -927,7 +927,7 @@ and terminate correctly.
 ### Sprint 5 – Intelligent Tool Orchestration
 Goal: Integrate production tools and finalize agent orchestration.
 
-See [Agent Design](../docs/AGENT_DESIGN.md), [Prompt Design](../docs/PROMPT_DESIGN.md), [Tool Design](../docs/TOOLS_DESIGN.md), [Runtime Design](../docs/RUNTIME_DESIGN.md), and [CLI Design](../docs/CLI_DESIGN.md) for architectural details.
+See [Agent Design](../docs/AGENT_DESIGN.md), [Prompt Design](../docs/PROMPT_DESIGN.md), [Tool Design](../docs/TOOLS_DESIGN.md), [Runtime Design](../docs/RUNTIME_DESIGN.md), [CLI Design](../docs/CLI_DESIGN.md), and [Technical Debt](../docs/TECHNICAL_DEBT.md) for architectural and project details.
 
 | ID  | Deliverable                | Priority | Status |
 | --- | -------------------------- | -------- | ------ |
