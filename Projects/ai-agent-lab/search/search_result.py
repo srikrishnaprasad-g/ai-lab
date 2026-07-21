@@ -1,7 +1,7 @@
 """Search result model."""
 
-from dataclasses import dataclass
-
+from dataclasses import dataclass, field
+from typing import Any
 
 @dataclass
 class SearchResult:
@@ -11,3 +11,4 @@ class SearchResult:
     url: str
     snippet: str
     rank: int
+    metadata: dict[str, Any] = field(default_factory=dict)

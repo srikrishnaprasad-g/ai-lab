@@ -7,7 +7,10 @@ from runtime.pipeline.telemetry_stage import TelemetryStage
 from runtime.pipeline.retry_stage import RetryStage
 from observability.telemetry_service import TelemetryService
 from registry.agent_registry import AgentRegistry
+from registry.tool_registry import ToolRegistry
 from agents.agent_factory import AgentFactory
+from tools.search.web_search_tool import WebSearchTool
+from search.providers.mock_search_provider import MockSearchProvider
 
 
 class RuntimeBootstrap:
@@ -33,14 +36,20 @@ class RuntimeBootstrap:
         # 4. Planner
         planner = TaskPlanner()
         
-        # 5. Agent Framework
+        # 5. Tool Framework
+        tool_registry = ToolRegistry()
+        search_provider = MockSearchProvider()
+        web_search_tool = WebSearchTool(search_provider, max_results=5)
+        tool_registry.register(web_search_tool)
+        
+        # 6. Agent Framework
         agent_registry = AgentRegistry()
-        agent_factory = AgentFactory(telemetry_service)
+        agent_factory = AgentFactory(telemetry_service, tool_registry)
         
         research_agent = agent_factory.create_research_agent()
         agent_registry.register(research_agent)
         
-        # 6. Orchestrator
+        # 7. Orchestrator
         orchestrator = RuntimeOrchestrator(planner, pipeline, agent_registry)
         
         return orchestrator

@@ -1,5 +1,6 @@
 """Production research agent implementation."""
 
+from registry.tool_registry import ToolRegistry
 from context.request_context import RequestContext
 from agents.agent_result import AgentResult
 from agents.base_agent import BaseAgent
@@ -9,8 +10,9 @@ from observability.telemetry_service import TelemetryService
 class ResearchAgent(BaseAgent):
     """Production research agent."""
 
-    def __init__(self, telemetry_service: TelemetryService) -> None:
+    def __init__(self, telemetry_service: TelemetryService, tool_registry: ToolRegistry) -> None:
         """Initializes the research agent."""
+        self._tool_registry = tool_registry
         capabilities = AgentCapabilities(
             supported_actions=["research"],
             supported_tools=["web_search"],
