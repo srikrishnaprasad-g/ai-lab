@@ -2,5 +2,6 @@
 
 from runtime.pipeline.pipeline_stage import PipelineStage
 from runtime.pipeline.execution_pipeline import ExecutionPipeline
+from runtime.pipeline.telemetry_stage import TelemetryStage
 
-__all__ = ["PipelineStage", "ExecutionPipeline"]
+__all__ = ["PipelineStage", "ExecutionPipeline", "TelemetryStage"]
