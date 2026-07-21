@@ -46,3 +46,20 @@ class RuntimeOrchestrator:
         # 3. ExecutionPipeline.execute(callback)
         # Passing context to the pipeline to be used by stages and the callback
         return self._pipeline.execute(callback, context)
+
+    def get_agent(self, agent_name: str) -> Any:
+        """Retrieves an agent from the registry.
+        
+        Args:
+            agent_name: Name of the agent.
+            
+        Returns:
+            The agent instance.
+            
+        Raises:
+            OrchestrationError: If agent not found.
+        """
+        try:
+            return self._agent_registry.get(agent_name)
+        except Exception as e:
+            raise OrchestrationError(f"Agent '{agent_name}' not found.") from e
