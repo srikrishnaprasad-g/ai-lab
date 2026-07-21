@@ -8,6 +8,12 @@
 | ADR-004 | Repository Health Policy           | Accepted |
 | ADR-005 | Documentation Governance           | Accepted |
 | ADR-006 | Definition of Done                 | Accepted |
+| ADR-007 | Incremental Architecture Evolution | Accepted |
+| ADR-008 | Architecture Freeze                | Accepted |
+| ADR-009 | Runtime owns Orchestration         | Accepted |
+| ADR-010 | Execution Pipeline                 | Accepted |
+| ADR-011 | Planning vs Execution              | Accepted |
+| ADR-012 | Stable Runtime Contracts           | Accepted |
 | ADR-013 | Planner Abstraction                | Accepted |
 | ADR-014 | Runtime Orchestrator               | Accepted |
 
