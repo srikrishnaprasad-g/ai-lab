@@ -924,15 +924,19 @@ capture telemetry,
 handle retries,
 and terminate correctly.
 
-Sprint 5 – Intelligent Tool Orchestration (Upcoming)
-------
+### Sprint 5 – Intelligent Tool Orchestration
+Goal: Integrate production tools and finalize agent orchestration.
 
-Sprint 5 Deliverables
+See [Agent Design](../docs/AGENT_DESIGN.md) and [Prompt Design](../docs/PROMPT_DESIGN.md) for architectural details.
 
 | ID  | Deliverable                | Priority | Status |
 | --- | -------------------------- | -------- | ------ |
 | 5.1 | Production Agent Framework | Critical | ✅ Done |
-| 5.2 | Tool Integration           | Critical | ⬜ Todo |
+| 5.2 | Production Prompt Framework | Critical | ⬜ Todo |
+| 5.3 | Production Search Tool     | Critical | ⬜ Todo |
+| 5.4 | Runtime Integration        | Critical | ⬜ Todo |
+| 5.5 | CLI Experience             | Critical | ⬜ Todo |
+| 5.6 | Sprint Validation          | Critical | ⬜ Todo |
 
 ------
 

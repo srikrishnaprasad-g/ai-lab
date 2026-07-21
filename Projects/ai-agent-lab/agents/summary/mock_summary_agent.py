@@ -10,7 +10,7 @@ from context.execution_event import ExecutionEvent
 from context import keys
 from llm.llm_provider import LLMProvider
 from llm.llm_request import LLMRequest
-from prompts.prompt_builder import PromptBuilder
+from prompts.summary_prompt_builder import SummaryPromptBuilder
 
 if TYPE_CHECKING:
     from context.request_context import RequestContext
@@ -19,7 +19,7 @@ if TYPE_CHECKING:
 class MockSummaryAgent(Agent):
     """A mock implementation of a summary agent using an LLM provider and prompt builder."""
 
-    def __init__(self, llm_provider: LLMProvider, default_model: str, prompt_builder: PromptBuilder) -> None:
+    def __init__(self, llm_provider: LLMProvider, default_model: str, prompt_builder: SummaryPromptBuilder) -> None:
         """Initializes the agent with an LLM provider, default model, and prompt builder.
 
         Args:
@@ -47,7 +47,7 @@ class MockSummaryAgent(Agent):
              raise AgentExecutionError("SearchResponse missing from RequestContext.")
         
         # Build prompt using PromptBuilder
-        prompt_result = self._prompt_builder.build(search_response)
+        prompt_result = self._prompt_builder.build_summary_prompt(search_response)
 
         # Call LLM
         # TODO:

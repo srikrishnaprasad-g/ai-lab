@@ -212,21 +212,46 @@ Future Architecture Register.
 
 # Sprint 5 Workflow & Guidelines
 
-## Agent Implementation Guidelines
-- Inherit from `BaseAgent`.
-- Implement `_execute()` for business logic.
-- Use `AgentCapabilities` for metadata.
-- Inject telemetry service.
-- Register agent in `AgentRegistry`.
+## Engineering Workflow
+1. **Design Review:** Document new functionality in `docs/` before implementation.
+2. **Implementation:** Follow `BaseAgent` and `RuntimeOrchestrator` contracts.
+3. **Validation:**
+    - Compile: `python -m compileall .`
+    - Tests: `python tests/test_agent_framework.py`
+    - Integration: `python scripts/test_runtime_orchestrator.py`
+    - End-to-End: `python scripts/test_e2e_runtime.py`
+4. **Repository Health Check:** Confirm clean boundaries, no duplication, no dead code.
+5. **Documentation Update:** Update `PROJECT.md`, `ENGINEERING.md` (if needed), and relevant `docs/` files.
+6. **Completion Report:** Use the standardized template below.
 
-## Validation Commands
-- Compile: `python -m compileall .`
-- Tests: `python tests/test_agent_framework.py`
-- Workflow Validation: `python scripts/test_runtime_orchestrator.py`
-- End-to-End: `python scripts/test_e2e_runtime.py`
+## Repository Metrics & Health Template
+Every task must include the following metrics and health check:
+
+### Repository Metrics
+- Python files: [count]
+- Source LOC: [count]
+- Test LOC: [count]
+- Markdown files: [count]
+- ADR count: [count]
+- Packages: [count]
+- Agents: [count]
+- Tools: [count]
+- Prompt templates: [count]
+- Test scripts: [count]
+
+### Repository Health
+- Critical:
+- Warnings:
+- Recommendations:
+- Technical Debt:
+- Dead Code:
+- Duplicate Code:
+- Package Boundaries:
+- Architecture Drift:
+- Overall Assessment:
 
 ## Definition of Done (Sprint 5)
-- All tests pass (including `test_agent_framework.py`).
+- All tests pass.
 - Runtime validation passes.
 - Repository health check passes.
-- Documentation updated.
+- Documentation updated (PROJECT.md, AGENT_DESIGN.md).

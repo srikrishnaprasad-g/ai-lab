@@ -1,21 +1,27 @@
-"""Prompt builder abstraction."""
-
+"""Prompt builder interface."""
 from abc import ABC, abstractmethod
-from prompts.prompt_result import PromptResult
-from search.search_response import SearchResponse
-
+from typing import Dict, Any
+from prompts.prompt_registry import PromptRegistry
+from prompts.prompt_renderer import PromptRenderer
+from prompts.prompt_variables import PromptVariables
 
 class PromptBuilder(ABC):
-    """Abstract base class for constructing prompts."""
-
+    """Abstract interface for agents to request rendered prompts."""
+    
     @abstractmethod
-    def build(self, search_response: SearchResponse) -> PromptResult:
-        """Constructs a prompt based on the provided search response.
-
-        Args:
-            search_response: The search response to process.
-
-        Returns:
-            A PromptResult containing the formatted prompt.
-        """
+    def build(self, template_id: str, variables: Dict[str, Any]) -> str:
+        """Builds a rendered prompt."""
         pass
+
+class DefaultPromptBuilder(PromptBuilder):
+    """Production implementation of PromptBuilder."""
+    
+    def __init__(self, registry: PromptRegistry) -> None:
+        self._registry = registry
+        self._renderer = PromptRenderer()
+        
+    def build(self, template_id: str, variables: Dict[str, Any]) -> str:
+        """Builds a rendered prompt."""
+        template = self._registry.get(template_id)
+        prompt_vars = PromptVariables(variables)
+        return self._renderer.render(template, prompt_vars)
