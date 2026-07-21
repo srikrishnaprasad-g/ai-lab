@@ -1009,3 +1009,17 @@ Sprint 4 Implementation order
 | **4.8** ADR & Documentation     | Last    |
 
 ------
+
+Sprint 4 Runtime
+
+✅ Runtime Contracts
+✅ Execution Pipeline
+✅ Telemetry Stage
+✅ Retry Stage
+✅ Planner
+✅ Runtime Orchestrator
+⬜ RuntimeBootstrap
+⬜ End-to-End Validation
+⬜ Timeout Stage (Deferred)
+
+------

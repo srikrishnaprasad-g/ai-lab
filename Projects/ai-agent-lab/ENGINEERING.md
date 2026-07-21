@@ -553,3 +553,32 @@ AgentResult
 RuntimeResult
 
 -----
+
+# Runtime Layering
+
+RuntimeBootstrap
+    ↓
+RuntimeOrchestrator
+    ↓
+Planner
+    ↓
+ExecutionPipeline
+    ↓
+PipelineStages
+    ↓
+Callback
+
+-----
+
+# Responsibilities Boundaries
+
+| Component           | Responsibility           |
+| ------------------- | ------------------------ |
+| Planner             | Decide what happens next |
+| RuntimeOrchestrator | Coordinate execution     |
+| ExecutionPipeline   | Execute middleware chain |
+| PipelineStage       | Cross-cutting concerns   |
+| Callback            | Business logic           |
+
+------
+
