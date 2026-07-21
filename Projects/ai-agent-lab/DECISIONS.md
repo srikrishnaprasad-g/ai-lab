@@ -8,6 +8,7 @@
 | ADR-004 | Repository Health Policy           | Accepted |
 | ADR-005 | Documentation Governance           | Accepted |
 | ADR-006 | Definition of Done                 | Accepted |
+| ADR-013 | Planner Abstraction                | Accepted |
 
 -----
 
@@ -200,4 +201,14 @@ ExecutionDecision
 RuntimeResult
 
 -----
+
+## ADR-013 - Planner Abstraction
+
+Status: Accepted
+
+Decision:
+The Planner component is responsible for deciding the next execution action based on the RequestContext.
+
+Rationale:
+Separates planning (WHAT) from execution (HOW) as defined in ADR-011.
 
