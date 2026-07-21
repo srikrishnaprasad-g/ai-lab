@@ -1018,8 +1018,8 @@ Sprint 4 Runtime
 ✅ Retry Stage
 ✅ Planner
 ✅ Runtime Orchestrator
-⬜ RuntimeBootstrap
-⬜ End-to-End Validation
+✅ RuntimeBootstrap
+⬜ End-to-End Runtime Validation
 ⬜ Timeout Stage (Deferred)
 
 ------

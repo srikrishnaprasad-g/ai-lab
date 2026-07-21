@@ -582,3 +582,51 @@ Callback
 
 ------
 
+# Runtime Architecture
+
+RuntimeBootstrap
+        │
+        ▼
+RuntimeOrchestrator
+        │
+        ▼
+Planner
+        │
+        ▼
+ExecutionPipeline
+        │
+        ▼
+TelemetryStage
+        │
+        ▼
+RetryStage
+        │
+        ▼
+Callback
+
+----
+
+# Composition Root
+
+RuntimeBootstrap is the sole composition root.
+All runtime dependencies are assembled there.
+Other runtime components receive dependencies via constructor injection.
+----
+
+# Dependency Injection Convention
+
+RuntimeOrchestrator never constructs dependencies.
+Planner never constructs dependencies.
+ExecutionPipeline never constructs dependencies.
+----
+
+# Pipeline Construction Order
+
+ExecutionPipeline
+    ↓
+TelemetryStage
+    ↓
+RetryStage
+    ↓
+Callback
+----
