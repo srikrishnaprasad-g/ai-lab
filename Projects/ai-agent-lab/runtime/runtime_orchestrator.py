@@ -4,21 +4,24 @@ from typing import Any, Callable
 from context.request_context import RequestContext
 from runtime.planner.planner import Planner
 from runtime.pipeline.execution_pipeline import ExecutionPipeline
+from registry.agent_registry import AgentRegistry
 from runtime.execution_action import ExecutionAction
 from runtime.exceptions import OrchestrationError
 
 class RuntimeOrchestrator:
     """Coordinates planning and execution."""
 
-    def __init__(self, planner: Planner, pipeline: ExecutionPipeline) -> None:
+    def __init__(self, planner: Planner, pipeline: ExecutionPipeline, agent_registry: AgentRegistry) -> None:
         """Initializes the orchestrator with required dependencies.
 
         Args:
             planner: The planner component.
             pipeline: The execution pipeline component.
+            agent_registry: The agent registry.
         """
         self._planner = planner
         self._pipeline = pipeline
+        self._agent_registry = agent_registry
 
     def execute(self, context: RequestContext, callback: Callable[..., Any]) -> Any:
         """Orchestrates the planning and execution of a request.

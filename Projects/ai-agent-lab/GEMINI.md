@@ -209,3 +209,24 @@ Otherwise,
 
 record the recommendation in the
 Future Architecture Register.
+
+# Sprint 5 Workflow & Guidelines
+
+## Agent Implementation Guidelines
+- Inherit from `BaseAgent`.
+- Implement `_execute()` for business logic.
+- Use `AgentCapabilities` for metadata.
+- Inject telemetry service.
+- Register agent in `AgentRegistry`.
+
+## Validation Commands
+- Compile: `python -m compileall .`
+- Tests: `python tests/test_agent_framework.py`
+- Workflow Validation: `python scripts/test_runtime_orchestrator.py`
+- End-to-End: `python scripts/test_e2e_runtime.py`
+
+## Definition of Done (Sprint 5)
+- All tests pass (including `test_agent_framework.py`).
+- Runtime validation passes.
+- Repository health check passes.
+- Documentation updated.

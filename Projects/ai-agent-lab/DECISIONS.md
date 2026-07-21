@@ -16,6 +16,7 @@
 | ADR-012 | Stable Runtime Contracts           | Accepted |
 | ADR-013 | Planner Abstraction                | Accepted |
 | ADR-014 | Runtime Orchestrator               | Accepted |
+| ADR-015 | Production Agent Framework         | Accepted |
 
 -----
 
@@ -228,4 +229,14 @@ The Runtime Orchestrator coordinates the execution flow by invoking the Planner 
 
 Rationale:
 Separates orchestration from planning and execution as defined in ADR-011.
+
+## ADR-015 - Production Agent Framework
+
+Status: Accepted
+
+Decision:
+All production agents must inherit from `BaseAgent`, which provides a standardized lifecycle, telemetry hooks, logging, and error handling. Business logic must be implemented in the `_execute` method.
+
+Rationale:
+Ensures consistency, standardized telemetry, and robust error handling across all agents while decoupling business logic from reusable agent infrastructure.
 

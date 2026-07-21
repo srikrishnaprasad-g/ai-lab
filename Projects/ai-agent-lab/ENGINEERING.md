@@ -218,11 +218,21 @@ Before every commit:
 
 ## Agent Design Rule
 
+All production agents must inherit from `BaseAgent`.
 Agents must never directly instantiate Tools.
-
 All Tool access must occur through ToolRegistry using dependency injection.
 
 This preserves loose coupling, enables tool replacement, and improves testability.
+
+## Production Agent Framework
+
+- Standardized Lifecycle: `BaseAgent` provides `execute()` as a telemetry and error handling wrapper.
+- Business Logic Separation: Concrete agents implement `_execute()`.
+- Capabilities: Agents define supported actions and tools via `AgentCapabilities`.
+- Dependency Injection: Telemetry and other services are injected via constructors.
+- Factory Pattern: Agents are instantiated through `AgentFactory`.
+- Registration: Agents are registered in `AgentRegistry`.
+-----
 
 ## Integration Validation Rule
 

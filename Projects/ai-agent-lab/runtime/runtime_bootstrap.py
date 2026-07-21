@@ -6,6 +6,8 @@ from runtime.pipeline.execution_pipeline import ExecutionPipeline
 from runtime.pipeline.telemetry_stage import TelemetryStage
 from runtime.pipeline.retry_stage import RetryStage
 from observability.telemetry_service import TelemetryService
+from registry.agent_registry import AgentRegistry
+from agents.agent_factory import AgentFactory
 
 
 class RuntimeBootstrap:
@@ -31,7 +33,14 @@ class RuntimeBootstrap:
         # 4. Planner
         planner = TaskPlanner()
         
-        # 5. Orchestrator
-        orchestrator = RuntimeOrchestrator(planner, pipeline)
+        # 5. Agent Framework
+        agent_registry = AgentRegistry()
+        agent_factory = AgentFactory(telemetry_service)
+        
+        research_agent = agent_factory.create_research_agent()
+        agent_registry.register(research_agent)
+        
+        # 6. Orchestrator
+        orchestrator = RuntimeOrchestrator(planner, pipeline, agent_registry)
         
         return orchestrator

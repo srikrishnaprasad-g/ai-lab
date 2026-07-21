@@ -927,6 +927,15 @@ and terminate correctly.
 Sprint 5 – Intelligent Tool Orchestration (Upcoming)
 ------
 
+Sprint 5 Deliverables
+
+| ID  | Deliverable                | Priority | Status |
+| --- | -------------------------- | -------- | ------ |
+| 5.1 | Production Agent Framework | Critical | ✅ Done |
+| 5.2 | Tool Integration           | Critical | ⬜ Todo |
+
+------
+
 Sprint 4 Deliverables
 
 | ID  | Deliverable                | Priority |
