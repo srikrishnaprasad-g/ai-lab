@@ -18,13 +18,16 @@ class ExecutionPipeline:
     def execute(self, callback: Callable[..., Any], *args, **kwargs) -> Any:
         """Executes the pipeline chain, terminating with the final callback.
 
+        The pipeline processes the request through registered stages, finally
+        invoking the callback with the provided arguments.
+
         Args:
-            callback: The final action to perform after all stages.
-            args: Positional arguments for the execution.
-            kwargs: Keyword arguments for the execution.
+            callback: The final action to perform after all pipeline stages.
+            *args: Positional arguments to forward to all stages and the callback.
+            **kwargs: Keyword arguments to forward to all stages and the callback.
 
         Returns:
-            The result of the pipeline execution.
+            The result of the final callback execution.
         """
         def _chain(idx: int) -> Callable[..., Any]:
             if idx >= len(self._stages):

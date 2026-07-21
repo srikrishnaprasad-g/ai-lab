@@ -9,6 +9,7 @@
 | ADR-005 | Documentation Governance           | Accepted |
 | ADR-006 | Definition of Done                 | Accepted |
 | ADR-013 | Planner Abstraction                | Accepted |
+| ADR-014 | Runtime Orchestrator               | Accepted |
 
 -----
 
@@ -211,4 +212,14 @@ The Planner component is responsible for deciding the next execution action base
 
 Rationale:
 Separates planning (WHAT) from execution (HOW) as defined in ADR-011.
+
+## ADR-014 - Runtime Orchestrator
+
+Status: Accepted
+
+Decision:
+The Runtime Orchestrator coordinates the execution flow by invoking the Planner to determine the next action, validating that action, and executing the final callback through the Execution Pipeline.
+
+Rationale:
+Separates orchestration from planning and execution as defined in ADR-011.
 
