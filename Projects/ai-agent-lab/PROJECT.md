@@ -924,8 +924,18 @@ capture telemetry,
 handle retries,
 and terminate correctly.
 
-### Sprint 5 – Intelligent Tool Orchestration
-Goal: Integrate production tools and finalize agent orchestration.
+### Sprint 6 – Search Framework
+Goal: Implement a provider-based, production-ready Search Framework.
+
+| ID  | Deliverable                | Priority | Status |
+| --- | -------------------------- | -------- | ------ |
+| 6.1 | Search Framework           | Critical | ✅ Done |
+| 6.2 | Research Agent             | High     | ⬜ Todo |
+| 6.3 | Summary Agent              | High     | ⬜ Todo |
+| 6.4 | PDF Agent                  | High     | ⬜ Todo |
+| 6.5 | Multi-Agent Orchestration  | High     | ⬜ Todo |
+| 6.6 | Demo, Validation & Release | High     | ⬜ Todo |
+
 
 See [Agent Design](../docs/AGENT_DESIGN.md), [Prompt Design](../docs/PROMPT_DESIGN.md), [Tool Design](../docs/TOOLS_DESIGN.md), [Runtime Design](../docs/RUNTIME_DESIGN.md), [CLI Design](../docs/CLI_DESIGN.md), and [Technical Debt](../docs/TECHNICAL_DEBT.md) for architectural and project details.
 

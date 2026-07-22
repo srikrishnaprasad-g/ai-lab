@@ -46,12 +46,17 @@ class Settings:
         metadata={"env_var": "GROQ_API_KEY"},
         repr=False  # Avoid printing API keys
     )
+    tavily_api_key: str | None = field(
+        default=None,
+        metadata={"env_var": "TAVILY_API_KEY"},
+        repr=False  # Avoid printing API keys
+    )
     log_level: LogLevel = field(
         default=LogLevel.INFO,
         metadata={"env_var": "LOG_LEVEL"},
     )
     default_search_provider: str = field(
-        default="duckduckgo",
+        default="tavily",
         metadata={"env_var": "DEFAULT_SEARCH_PROVIDER"},
     )
     default_search_max_results: int = field(

@@ -4,7 +4,7 @@ from typing import Type
 
 from config.settings import Settings
 from search.exceptions import UnsupportedSearchProviderError
-from search.providers.duckduckgo_provider import DuckDuckGoProvider
+from search.providers.tavily_provider import TavilyProvider
 from search.search_provider import SearchProvider
 from search.search_provider_config import SearchProviderConfig
 from search.http_client import HttpClient
@@ -14,7 +14,7 @@ class SearchProviderFactory:
     """Factory for creating search provider instances."""
 
     _PROVIDER_REGISTRY: dict[str, Type[SearchProvider]] = {
-        "duckduckgo": DuckDuckGoProvider,
+        "tavily": TavilyProvider,
     }
 
     def __init__(self, settings: Settings) -> None:
@@ -34,6 +34,10 @@ class SearchProviderFactory:
                 timeout=self._settings.default_search_timeout,
             )
             http_client = HttpClient(timeout=config.timeout)
+            
+            # Tavily requires an API key
+            if provider_name == "tavily":
+                return provider_cls(http_client, config, api_key=self._settings.tavily_api_key)
             
             return provider_cls(http_client, config)
         raise UnsupportedSearchProviderError(f"Unsupported provider: {provider_name}")
