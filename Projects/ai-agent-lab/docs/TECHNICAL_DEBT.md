@@ -16,3 +16,6 @@ This register maintains a living record of known technical debt, improvements, a
 | TD-010 | Finding title generation | Agents | Low | Sprint 6 | Open | Automate generation of descriptive titles for findings. |
 | TD-011 | Implement external template loader for PromptRegistry | Prompts | Medium | Sprint 6 | Open | Support loading prompt templates from external files. |
 | TD-012 | Evolve PromptResult to support structured fields | Prompts | Low | Sprint 6 | Open | Support separate system/user/metadata fields. |
+| TD-013 | Implement CSS-like styling for PDFDocument | PDF | Low | Sprint 6 | Open | Move styling configuration out of code into templates. |
+| TD-014 | Support DOCX/HTML via new PDFGenerator | PDF | Medium | Sprint 6 | Open | Implement alternative format renderers. |
+| TD-015 | Remove obsolete mock_pdf_tool | Tools | Low | Sprint 6 | Open | Remove redundant mock PDF tool now replaced by ReportLabGenerator. |

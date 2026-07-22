@@ -30,7 +30,7 @@ Goal: Implement a provider-based, production-ready Search Framework and Summary 
 | 6.3A| Summary Models & Contracts | High     | ✅ Done |
 | 6.3B| Summary Agent              | High     | ✅ Done |
 | 6.3C| Summary Prompt Engineering | High     | ✅ Done |
-| 6.4 | PDF Agent                  | High     | ⬜ Todo |
+| 6.4 | PDF Agent                  | High     | ✅ Done |
 | 6.5 | Multi-Agent Orchestration  | High     | ⬜ Todo |
 | 6.6 | Demo, Validation & Release | High     | ⬜ Todo |
 
@@ -951,8 +951,8 @@ Goal: Implement a provider-based, production-ready Search Framework and Summary 
 | 6.2 | Research Agent             | High     | ✅ Done |
 | 6.3A| Summary Models & Contracts | High     | ✅ Done |
 | 6.3B| Summary Agent              | High     | ✅ Done |
-| 6.3C| Summary Prompt Engineering | High     | ⬜ Todo |
-| 6.4 | PDF Agent                  | High     | ⬜ Todo |
+| 6.3C| Summary Prompt Engineering | High     | ✅ Done |
+| 6.4 | PDF Agent                  | High     | ✅ Done |
 | 6.5 | Multi-Agent Orchestration  | High     | ⬜ Todo |
 | 6.6 | Demo, Validation & Release | High     | ⬜ Todo |
 

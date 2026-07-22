@@ -11,6 +11,7 @@ from agents.agent_factory import AgentFactory
 from search.search_service import SearchService
 from search.search_provider_factory import SearchProviderFactory
 from prompts.prompt_registry import PromptRegistry
+from agents.pdf.reportlab_generator import ReportLabGenerator
 from config.settings import load_settings
 
 
@@ -48,9 +49,12 @@ class RuntimeBootstrap:
         # 7. Prompt Framework
         prompt_registry = PromptRegistry()
         
-        # 8. Agent Framework
+        # 8. PDF Framework
+        pdf_generator = ReportLabGenerator()
+        
+        # 9. Agent Framework
         agent_registry = AgentRegistry()
-        agent_factory = AgentFactory(telemetry_service, search_service, prompt_registry)
+        agent_factory = AgentFactory(telemetry_service, search_service, prompt_registry, pdf_generator)
         
         research_agent = agent_factory.create_research_agent()
         agent_registry.register(research_agent)
@@ -58,7 +62,10 @@ class RuntimeBootstrap:
         summary_agent = agent_factory.create_summary_agent()
         agent_registry.register(summary_agent)
         
-        # 9. Orchestrator
+        pdf_agent = agent_factory.create_pdf_agent()
+        agent_registry.register(pdf_agent)
+        
+        # 10. Orchestrator
         orchestrator = RuntimeOrchestrator(planner, pipeline, agent_registry)
         
         return orchestrator

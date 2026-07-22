@@ -13,7 +13,7 @@ Sprint 5
 Sprint 6: Summary Agent Implementation
 
 ## Current Task
-None (Waiting for Sprint 6.4).
+None (Waiting for Sprint 6.5).
 
 ## Completed Tasks
 - Sprint 1-5: Base Runtime Foundation (Agents, Prompts, Tools, CLI).
@@ -22,6 +22,7 @@ None (Waiting for Sprint 6.4).
 - Sprint 6 (Task 6.3A): Summary Domain Models & Contracts (Done).
 - Sprint 6 (Task 6.3B): Summary Agent (Done).
 - Sprint 6 (Task 6.3C): Summary Prompt Engineering (Done).
+- Sprint 6 (Task 6.4): PDF Agent Implementation (Done).
 
 ## Sprint Roadmap
 - Sprint 6: Summary Agent Implementation.
@@ -30,15 +31,15 @@ None (Waiting for Sprint 6.4).
     - 6.3A Summary Models & Contracts (Done)
     - 6.3B Summary Agent (Done)
     - 6.3C Summary Prompt Engineering (Done)
-    - 6.4 PDF Agent (Todo)
+    - 6.4 PDF Agent (Done)
     - 6.5 Multi-Agent Orchestration (Todo)
     - 6.6 Demo, Validation & Release (Todo)
 
 ## Current Deliverable
-Task 6.3C: Summary Prompt Engineering implemented.
+Task 6.4: PDF Agent implemented.
 
 ## Immediate Next Task
-Task 6.4: PDF Agent implementation.
+Task 6.5: Multi-Agent Orchestration.
 
 ## Latest Architectural Decisions
 - Search Framework decoupled via `SearchProvider` interface.

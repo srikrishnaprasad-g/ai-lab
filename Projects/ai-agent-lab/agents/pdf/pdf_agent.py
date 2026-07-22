@@ -1,0 +1,50 @@
+"""Production PDF agent implementation."""
+
+from pathlib import Path
+from agents.base_agent import BaseAgent
+from agents.agent_result import AgentResult
+from agents.agent_capabilities import AgentCapabilities
+from agents.summary.models.core import SummaryResult
+from agents.pdf.pdf_generator import PDFGenerator
+from agents.pdf.models.document import Document, Metadata, Section, Paragraph
+from agents.pdf.models.pdf_result import PDFResult
+from context.request_context import RequestContext
+from observability.telemetry_service import TelemetryService
+
+class PDFAgent(BaseAgent):
+    """Generates PDF reports from summary results."""
+
+    def __init__(self, telemetry_service: TelemetryService, pdf_generator: PDFGenerator) -> None:
+        capabilities = AgentCapabilities(
+            supported_actions=["generate_pdf"],
+            supported_tools=[],
+            execution_requirements=[]
+        )
+        super().__init__(
+            name="pdf_agent",
+            description="Converts structured summary results to PDF documents.",
+            telemetry_service=telemetry_service,
+            capabilities=capabilities
+        )
+        self._generator = pdf_generator
+
+    def _execute(self, context: RequestContext) -> AgentResult:
+        """Executes PDF generation."""
+        summary = context.working_memory.get("summary_result")
+        if not isinstance(summary, SummaryResult):
+            return AgentResult(success=False, output=None, errors=["SummaryResult not found."])
+        
+        # Map domain model to document structure
+        doc = Document(
+            metadata=Metadata(title="Summary Report", author="AI Agent Lab"),
+            content=[
+                Section(heading="Executive Summary", elements=[Paragraph(summary.executive_summary)]),
+                # Map other findings here...
+            ]
+        )
+        
+        output_path = Path(f"report_{context.request_id}.pdf")
+        generated_path = self._generator.generate(doc, output_path)
+        
+        result = PDFResult(file_path=generated_path, page_count=1)
+        return AgentResult(success=True, output=result)
