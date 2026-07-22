@@ -8,11 +8,18 @@ from agents.research.research_result import ResearchResult
 from search.search_result import SearchResult
 from context.request_context import RequestContext
 from observability.telemetry_service import TelemetryService
+from prompts.prompt_registry import PromptRegistry
+from prompts.summary_prompt_builder import SummaryPromptBuilder
+
+def _create_agent():
+    telemetry = MagicMock(spec=TelemetryService)
+    registry = PromptRegistry()
+    prompt_builder = SummaryPromptBuilder(registry)
+    return SummaryAgent(telemetry, prompt_builder)
 
 def test_summary_agent_successful():
     print("Testing SummaryAgent successful summary...")
-    telemetry = MagicMock(spec=TelemetryService)
-    agent = SummaryAgent(telemetry)
+    agent = _create_agent()
     
     # Setup request
     src1 = SearchResult(title="T1", url="U1", snippet="Snippet 1", rank=1)
@@ -37,8 +44,7 @@ def test_summary_agent_successful():
 
 def test_summary_agent_low_confidence_gap():
     print("Testing SummaryAgent low confidence and gap...")
-    telemetry = MagicMock(spec=TelemetryService)
-    agent = SummaryAgent(telemetry)
+    agent = _create_agent()
     
     # Setup request with only 1 source
     src = SearchResult(title="T", url="U", snippet="S", rank=1)
@@ -58,8 +64,7 @@ def test_summary_agent_low_confidence_gap():
 
 def test_summary_agent_missing_request():
     print("Testing SummaryAgent missing request...")
-    telemetry = MagicMock(spec=TelemetryService)
-    agent = SummaryAgent(telemetry)
+    agent = _create_agent()
     
     context = RequestContext(request_id="1", correlation_id="c1", user_request="test")
     # working_memory empty

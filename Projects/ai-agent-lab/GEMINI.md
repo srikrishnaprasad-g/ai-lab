@@ -28,6 +28,7 @@ Return PDF
 
 ## Engineering Rules
 
+- **MANDATORY:** Always follow `docs/IMPLEMENTATION_TEMPLATE.md` for all tasks.
 - Always read PROJECT.md
 - Always read ENGINEERING.md
 - Never skip compile
@@ -38,17 +39,17 @@ Return PDF
 
 ## Development Workflow
 
-1. Read PROJECT.md
-2. Read ENGINEERING.md
-3. Understand task
-4. Explain design
-5. Implement
-6. Self-review
-7. Compile
-8. Smoke Test
-9. Runtime Validation
-10. Architecture Review
-11. Git Commit
+1. Read `docs/IMPLEMENTATION_TEMPLATE.md`.
+2. Understand task.
+3. Explain design.
+4. Implement.
+5. Self-review.
+6. Compile.
+7. Smoke Test.
+8. Runtime Validation.
+9. Architecture Review.
+10. Git Commit.
+11. Repository Verification.
 
 ## Git
 

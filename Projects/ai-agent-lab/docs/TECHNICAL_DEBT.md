@@ -14,3 +14,5 @@ This register maintains a living record of known technical debt, improvements, a
 | TD-008 | Knowledge-gap heuristics | Planner | Medium | Sprint 6 | Open | Improve planning efficiency based on identified information gaps. |
 | TD-009 | Summary synthesis improvements | Agents | Medium | Sprint 6 | Open | Refine summary quality and structure. |
 | TD-010 | Finding title generation | Agents | Low | Sprint 6 | Open | Automate generation of descriptive titles for findings. |
+| TD-011 | Implement external template loader for PromptRegistry | Prompts | Medium | Sprint 6 | Open | Support loading prompt templates from external files. |
+| TD-012 | Evolve PromptResult to support structured fields | Prompts | Low | Sprint 6 | Open | Support separate system/user/metadata fields. |

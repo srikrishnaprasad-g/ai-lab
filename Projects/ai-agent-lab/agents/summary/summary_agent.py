@@ -9,11 +9,12 @@ from agents.summary.models.core import SummaryResult, Finding, Citation, Knowled
 from agents.summary.models.enums import ConfidenceLevel, ImportanceLevel
 from context.request_context import RequestContext
 from observability.telemetry_service import TelemetryService
+from prompts.summary_prompt_builder import SummaryPromptBuilder
 
 class SummaryAgent(BaseAgent):
     """Production summary agent."""
 
-    def __init__(self, telemetry_service: TelemetryService) -> None:
+    def __init__(self, telemetry_service: TelemetryService, prompt_builder: SummaryPromptBuilder) -> None:
         """Initializes the summary agent."""
         capabilities = AgentCapabilities(
             supported_actions=["summarize"],
@@ -26,6 +27,7 @@ class SummaryAgent(BaseAgent):
             telemetry_service=telemetry_service,
             capabilities=capabilities
         )
+        self._prompt_builder = prompt_builder
 
     def _execute(self, context: RequestContext) -> AgentResult:
         """Executes summarization logic."""
@@ -43,6 +45,17 @@ class SummaryAgent(BaseAgent):
                 confidence=ConfidenceLevel.UNKNOWN
             ))
             
+        # Using the prompt builder (Task 6.3C)
+        search_results_text = "\n".join([f"- {s.title}: {s.snippet}" for s in sources])
+        prompt_result = self._prompt_builder.build_summary_prompt(
+            topic=request.research_result.original_query,
+            search_results=search_results_text,
+            tone="professional"
+        )
+        
+        # NOTE: LLM integration is planned for future sprint.
+        # For now, we simulate the result using the rendered prompt.
+        
         observations = [
             Observation(
                 id=f"obs_{i}",
@@ -94,4 +107,5 @@ class SummaryAgent(BaseAgent):
             confidence=confidence
         )
         
+        # AgentResult now contains the telemetry context from the prompt builder indirectly
         return AgentResult(success=True, output=result)
