@@ -13,33 +13,34 @@ Sprint 5
 Sprint 6: First Working Agentic Workflow
 
 ## Current Task
-Task 6.1 Completion: Release Validation & Freeze for Search Framework.
+Task 6.2 Completion: Research Agent Implementation.
 
 ## Completed Tasks
 - Sprint 1-5: Base Runtime Foundation (Agents, Prompts, Tools, CLI).
 - Sprint 6 (Task 6.1): Search Framework (Tavily Provider implementation).
+- Sprint 6 (Task 6.2): Research Agent (Done).
 
 ## Sprint Roadmap
 - Sprint 6: Search Framework & Tool Integration.
     - 6.1 Search Framework (Done)
-    - 6.2 Research Agent (Todo)
+    - 6.2 Research Agent (Done)
     - 6.3 Summary Agent (Todo)
     - 6.4 PDF Agent (Todo)
     - 6.5 Multi-Agent Orchestration (Todo)
     - 6.6 Demo, Validation & Release (Todo)
 
 ## Current Deliverable
-Task 6.1: Search Framework implementation validated.
+Task 6.2: Research Agent implemented.
 
 ## Immediate Next Task
-Task 6.2: Research Agent implementation.
+Task 6.3: Summary Agent implementation.
 
 ## Latest Architectural Decisions
 - Search Framework decoupled via `SearchProvider` interface.
 - Providers injected via DI.
 - Tavily selected as production search provider.
-- Agents never invoke other agents 
-- Workflow orchestration belongs exclusively to RuntimeOrchestrator.
+- Research Agent returns structured `ResearchResult` instead of serialized string.
+- Agent failures are consistently handled via `AgentResult.errors`.
 
 ## Repository Health
 Healthy. All unit/integration tests pass. Integration validation for Tavily pending API key.

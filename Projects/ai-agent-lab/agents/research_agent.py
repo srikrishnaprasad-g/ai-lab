@@ -1,24 +1,21 @@
 """Production research agent implementation."""
 
-from registry.tool_registry import ToolRegistry
-from prompts.prompt_builder import PromptBuilder
-from llm.llm_provider import LLMProvider
-from llm.llm_request import LLMRequest
+import time
+from search.search_service import SearchService
+from search.exceptions import SearchProviderError
 from context.request_context import RequestContext
 from agents.agent_result import AgentResult
 from agents.base_agent import BaseAgent
 from agents.agent_capabilities import AgentCapabilities
 from observability.telemetry_service import TelemetryService
-from context import keys
+from agents.research.research_result import ResearchResult
 
 class ResearchAgent(BaseAgent):
     """Production research agent."""
 
-    def __init__(self, telemetry_service: TelemetryService, tool_registry: ToolRegistry, prompt_builder: PromptBuilder, llm_provider: LLMProvider) -> None:
+    def __init__(self, telemetry_service: TelemetryService, search_service: SearchService) -> None:
         """Initializes the research agent."""
-        self._tool_registry = tool_registry
-        self._prompt_builder = prompt_builder
-        self._llm_provider = llm_provider
+        self._search_service = search_service
         capabilities = AgentCapabilities(
             supported_actions=["research"],
             supported_tools=["web_search"],
@@ -33,20 +30,28 @@ class ResearchAgent(BaseAgent):
 
     def _execute(self, context: RequestContext) -> AgentResult:
         """Executes research logic."""
-        tool = self._tool_registry.get("web_search")
-        tool_result = tool.execute(context)
-        
-        if not tool_result.success:
-            return AgentResult(success=False, output="Search failed")
+        if not context.user_request.strip():
+            return AgentResult(success=False, output=None, errors=["Empty query."])
             
-        search_response = context.working_memory.get(keys.SEARCH_RESPONSE)
-        if not search_response:
-             return AgentResult(success=False, output="Search response missing")
+        start_time = time.perf_counter()
         
-        # Build prompt using PromptBuilder
-        prompt = self._prompt_builder.build("research_task", {"topic": context.user_request, "format": "summary"})
+        try:
+            search_response = self._search_service.perform_search(context.user_request)
+        except SearchProviderError as e:
+            return AgentResult(success=False, output=None, errors=[str(e)])
+        except Exception as e:
+            return AgentResult(success=False, output=None, errors=[f"Unexpected provider error: {e}"])
         
-        # Call LLM Provider
-        llm_response = self._llm_provider.generate(LLMRequest(prompt=prompt, model="default-model"))
+        duration = time.perf_counter() - start_time
         
-        return AgentResult(success=True, output=llm_response.content)
+        research_result = ResearchResult(
+            original_query=context.user_request,
+            search_provider=search_response.provider,
+            source_count=len(search_response.results),
+            sources=search_response.results,
+            observations=[r.snippet for r in search_response.results],
+            processing_duration=duration,
+            raw_search_response=search_response
+        )
+        
+        return AgentResult(success=True, output=research_result)

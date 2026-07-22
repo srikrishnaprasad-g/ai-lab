@@ -930,7 +930,7 @@ Goal: Implement a provider-based, production-ready Search Framework.
 | ID  | Deliverable                | Priority | Status |
 | --- | -------------------------- | -------- | ------ |
 | 6.1 | Search Framework           | Critical | ✅ Done |
-| 6.2 | Research Agent             | High     | ⬜ Todo |
+| 6.2 | Research Agent             | High     | ✅ Done |
 | 6.3 | Summary Agent              | High     | ⬜ Todo |
 | 6.4 | PDF Agent                  | High     | ⬜ Todo |
 | 6.5 | Multi-Agent Orchestration  | High     | ⬜ Todo |
