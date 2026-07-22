@@ -4,6 +4,7 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from typing import Any, List, Optional
 from search.search_result import SearchResult
+from agents.summary.models.enums import ImportanceLevel, ConfidenceLevel
 
 @dataclass(frozen=True)
 class Observation:
@@ -32,16 +33,16 @@ class Finding:
     """Represents one synthesized insight."""
     title: str
     description: str
-    importance: float
+    importance: ImportanceLevel
     supporting_observations: List[Observation]
-    confidence: float
+    confidence: ConfidenceLevel
 
 @dataclass(frozen=True)
 class KnowledgeGap:
     """Represents missing or uncertain information."""
     question: str
     reason: str
-    priority: int
+    priority: ImportanceLevel
     recommended_search: Optional[str] = None
 
 @dataclass(frozen=True)
@@ -51,5 +52,5 @@ class SummaryResult:
     key_findings: List[Finding]
     knowledge_gaps: List[KnowledgeGap]
     citations: List[Citation]
-    confidence: float
+    confidence: ConfidenceLevel
     metadata: dict[str, Any] = field(default_factory=dict)
