@@ -13,12 +13,13 @@ Sprint 5
 Sprint 6: First Working Agentic Workflow
 
 ## Current Task
-Task 6.2 Completion: Research Agent Implementation.
+Task 6.3A Completion: Summary Domain Models & Contracts implementation.
 
 ## Completed Tasks
 - Sprint 1-5: Base Runtime Foundation (Agents, Prompts, Tools, CLI).
 - Sprint 6 (Task 6.1): Search Framework (Tavily Provider implementation).
 - Sprint 6 (Task 6.2): Research Agent (Done).
+- Sprint 6 (Task 6.3A): Summary Domain Models & Contracts (Done).
 
 ## Sprint Roadmap
 - Sprint 6: Search Framework & Tool Integration.
@@ -30,7 +31,7 @@ Task 6.2 Completion: Research Agent Implementation.
     - 6.6 Demo, Validation & Release (Todo)
 
 ## Current Deliverable
-Task 6.2: Research Agent implemented.
+Task 6.3A: Summary Domain Models implemented.
 
 ## Immediate Next Task
 Task 6.3: Summary Agent implementation.
@@ -41,6 +42,7 @@ Task 6.3: Summary Agent implementation.
 - Tavily selected as production search provider.
 - Research Agent returns structured `ResearchResult` instead of serialized string.
 - Agent failures are consistently handled via `AgentResult.errors`.
+- Summary agent contracts implemented via strongly-typed dataclasses.
 
 ## Repository Health
 Healthy. All unit/integration tests pass. Integration validation for Tavily pending API key.
