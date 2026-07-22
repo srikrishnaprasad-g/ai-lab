@@ -924,14 +924,16 @@ capture telemetry,
 handle retries,
 and terminate correctly.
 
-### Sprint 6 – Search Framework
-Goal: Implement a provider-based, production-ready Search Framework.
+### Sprint 6 – Summary Agent Implementation
+Goal: Implement a provider-based, production-ready Search Framework and Summary Agent.
 
 | ID  | Deliverable                | Priority | Status |
 | --- | -------------------------- | -------- | ------ |
 | 6.1 | Search Framework           | Critical | ✅ Done |
 | 6.2 | Research Agent             | High     | ✅ Done |
-| 6.3 | Summary Agent              | High     | ⬜ Todo |
+| 6.3A| Summary Models & Contracts | High     | ✅ Done |
+| 6.3B| Summary Agent              | High     | ✅ Done |
+| 6.3C| Summary Prompt Engineering | High     | ⬜ Todo |
 | 6.4 | PDF Agent                  | High     | ⬜ Todo |
 | 6.5 | Multi-Agent Orchestration  | High     | ⬜ Todo |
 | 6.6 | Demo, Validation & Release | High     | ⬜ Todo |

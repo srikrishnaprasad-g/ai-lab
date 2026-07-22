@@ -10,31 +10,34 @@ Layered architecture with a clear composition root (`RuntimeBootstrap`). Modular
 Sprint 5
 
 ## Current Sprint
-Sprint 6: First Working Agentic Workflow
+Sprint 6: Summary Agent Implementation
 
 ## Current Task
-Task 6.3A Completion: Summary Domain Models & Contracts implementation.
+None (Waiting for Sprint 6.3C).
 
 ## Completed Tasks
 - Sprint 1-5: Base Runtime Foundation (Agents, Prompts, Tools, CLI).
 - Sprint 6 (Task 6.1): Search Framework (Tavily Provider implementation).
 - Sprint 6 (Task 6.2): Research Agent (Done).
 - Sprint 6 (Task 6.3A): Summary Domain Models & Contracts (Done).
+- Sprint 6 (Task 6.3B): Summary Agent (Done).
 
 ## Sprint Roadmap
-- Sprint 6: Search Framework & Tool Integration.
+- Sprint 6: Summary Agent Implementation.
     - 6.1 Search Framework (Done)
     - 6.2 Research Agent (Done)
-    - 6.3 Summary Agent (Todo)
+    - 6.3A Summary Models & Contracts (Done)
+    - 6.3B Summary Agent (Done)
+    - 6.3C Summary Prompt Engineering (Todo)
     - 6.4 PDF Agent (Todo)
     - 6.5 Multi-Agent Orchestration (Todo)
     - 6.6 Demo, Validation & Release (Todo)
 
 ## Current Deliverable
-Task 6.3A: Summary Domain Models implemented.
+Task 6.3B: Summary Agent implemented.
 
 ## Immediate Next Task
-Task 6.3: Summary Agent implementation.
+Task 6.3C: Summary Prompt Engineering.
 
 ## Latest Architectural Decisions
 - Search Framework decoupled via `SearchProvider` interface.

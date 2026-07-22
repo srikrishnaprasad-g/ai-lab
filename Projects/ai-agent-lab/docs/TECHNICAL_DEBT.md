@@ -8,3 +8,9 @@ This register maintains a living record of known technical debt, improvements, a
 | TD-002 | Consolidate smoke tests | Testing | Minor | Sprint 5 | Open | Reduce duplicated diagnostic execution and simplify maintenance. |
 | TD-003 | System prompt integration in Mock Summary Agent | Agents | Minor | Sprint 5 | Open | Prepare the mock implementation for future LLM-backed execution. |
 | TD-004 | RuntimeOrchestrator API evolution | Runtime | Future | Sprint 5 | Open | Introduce a single RuntimeOrchestrator.handle_request() entry point so callers remain unaware of agent selection and execution details. |
+| TD-005 | Observation ID references | Observability | Medium | Sprint 6 | Open | Ensure unique identification for spans and traces. |
+| TD-006 | UTC timestamps | Observability | Medium | Sprint 6 | Open | Standardize all timing events to UTC. |
+| TD-007 | Serialization tests | Testing | Medium | Sprint 6 | Open | Verify domain object serialization for context persistence. |
+| TD-008 | Knowledge-gap heuristics | Planner | Medium | Sprint 6 | Open | Improve planning efficiency based on identified information gaps. |
+| TD-009 | Summary synthesis improvements | Agents | Medium | Sprint 6 | Open | Refine summary quality and structure. |
+| TD-010 | Finding title generation | Agents | Low | Sprint 6 | Open | Automate generation of descriptive titles for findings. |
