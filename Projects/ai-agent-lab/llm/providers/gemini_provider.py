@@ -38,6 +38,9 @@ class GeminiProvider(BaseLLMProvider):
             "contents": [{"parts": [{"text": request.prompt}]}],
         }
         
+        if request.system_prompt:
+            payload["systemInstruction"] = {"parts": [{"text": request.system_prompt}]}
+        
         if request.temperature is not None:
             payload.setdefault("generationConfig", {})["temperature"] = request.temperature
         if request.max_tokens is not None:

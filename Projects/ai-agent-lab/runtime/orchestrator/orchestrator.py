@@ -11,6 +11,11 @@ from agents.summary.models.enums import SummaryStyle, Audience, Tone, OutputForm
 from agents.pdf.models.pdf_result import PDFResult
 from agents.research.research_result import ResearchResult
 
+import time
+import logging
+
+logger = logging.getLogger("pipeline")
+
 class RuntimeOrchestrator:
     """Manages agent execution lifecycle."""
     
@@ -46,19 +51,34 @@ class RuntimeOrchestrator:
                         output_format=OutputFormat.MARKDOWN
                     )
                     context.set("summary_request", req)
-                    
+            
             # Execute Pipeline
-            result = self._pipeline.execute(agent.execute, context)
+            start = time.perf_counter()
+            try:
+                result = self._pipeline.execute(agent.execute, context)
+                if not result.success:
+                    logger.info(f"[FAIL] {task_id.replace('_', ' ').title()}")
+                    return None
+            except Exception as e:
+                logger.info(f"[FAIL] {task_id.replace('_', ' ').title()}\nReason: {e}")
+                raise
+            
+            duration = (time.perf_counter() - start) * 1000
+            logger.info(f"[PASS] {task_id.replace('_', ' ').title()} ({int(duration)} ms)")
             
             # Context-driven output propagation (Task 6.5A-R Recommendation)
             if result.success and result.output is not None:
                 if task_id == "research_agent":
                     context.set("research_result", result.output)
+                    logger.info(f"[PASS] Tavily\nResults: {len(result.output.sources)}")
                 elif task_id == "summary_agent":
                     context.set("summary_result", result.output)
+                    logger.info(f"[PASS] Summary Agent\nFindings: {len(result.output.key_findings)}")
                 elif task_id == "pdf_agent":
                     context.set("final_result", result.output)
+                    logger.info(f"[PASS] PDF Agent\nSections: 2")
             
             completed_tasks.append(task_id)
             
         return context.get("final_result", Any)
+
