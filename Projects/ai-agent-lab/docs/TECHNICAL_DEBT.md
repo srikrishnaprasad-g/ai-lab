@@ -19,3 +19,4 @@ This register maintains a living record of known technical debt, improvements, a
 | TD-013 | Implement CSS-like styling for PDFDocument | PDF | Low | Sprint 6 | Open | Move styling configuration out of code into templates. |
 | TD-014 | Support DOCX/HTML via new PDFGenerator | PDF | Medium | Sprint 6 | Open | Implement alternative format renderers. |
 | TD-015 | Remove obsolete mock_pdf_tool | Tools | Low | Sprint 6 | Open | Remove redundant mock PDF tool now replaced by ReportLabGenerator. |
+| TD-016 | Introduce Immutable TypedWorkflowContext Snapshots | Runtime | Medium | Sprint 6 | Open | Ensure TypedWorkflowContext cannot be mutated across agent boundaries. |

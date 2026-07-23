@@ -23,11 +23,14 @@ The Agent Framework provides a standardized, production-ready foundation for all
     - Results/Errors are processed.
     - Telemetry span ended.
 
-## Runtime Integration
-Agents are invoked by the `RuntimeOrchestrator` via `ExecutionPipeline`. They receive `RequestContext` and return `AgentResult`.
+## Orchestration & Integration
+Agents are invoked by the `RuntimeOrchestrator` via `ExecutionPipeline`.
+- Agents receive `TypedWorkflowContext` as the shared state container.
+- Agents return `AgentResult` containing either the output or error details.
+- Agents must NOT contain workflow orchestration logic; they are responsible exclusively for their own business logic execution.
 
 ## Planner Integration
-The `Planner` decides which agent to call based on the state in `RequestContext`. The agent is retrieved from `AgentRegistry`.
+The `Planner` decides which agent to call based on the `WorkflowDefinition`. The agent is retrieved from `AgentRegistry`.
 
 ## Telemetry
 All agent executions are instrumented by `BaseAgent` using the injected `TelemetryService`, ensuring consistent trace and span creation across all agents.

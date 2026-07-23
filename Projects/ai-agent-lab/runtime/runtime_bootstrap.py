@@ -1,6 +1,6 @@
 """Runtime bootstrap implementation."""
 
-from runtime.runtime_orchestrator import RuntimeOrchestrator
+from runtime.orchestrator.orchestrator import RuntimeOrchestrator
 from runtime.planner.planner import TaskPlanner
 from runtime.pipeline.execution_pipeline import ExecutionPipeline
 from runtime.pipeline.telemetry_stage import TelemetryStage

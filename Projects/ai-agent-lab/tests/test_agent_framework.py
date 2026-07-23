@@ -55,10 +55,16 @@ def test_agent_exception_handling():
         assert str(e) == "Intentional error"
     print("Exception handling PASSED.")
 
+from unittest.mock import MagicMock
+
 def test_agent_factory():
     print("Testing agent factory...")
     telemetry = MockTelemetryService()
-    factory = AgentFactory(telemetry)
+    search = MagicMock()
+    prompt_registry = MagicMock()
+    pdf_generator = MagicMock()
+    
+    factory = AgentFactory(telemetry, search, prompt_registry, pdf_generator)
     agent = factory.create_research_agent()
     assert agent.name() == "research_agent"
     print("Agent factory PASSED.")

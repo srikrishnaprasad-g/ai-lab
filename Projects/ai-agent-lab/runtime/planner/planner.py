@@ -1,23 +1,24 @@
 """Planner abstraction and implementation."""
 
 from abc import ABC, abstractmethod
+from runtime.models.workflow import WorkflowDefinition
+from runtime.models.plan import ExecutionPlan
+from runtime.models.policy import ExecutionPolicy
+from runtime.orchestrator.task_graph import TaskGraph, TaskNode
 from context.request_context import RequestContext
-from runtime.execution_action import ExecutionAction
-from runtime.planner.execution_plan import ExecutionPlan
-
 
 class Planner(ABC):
     """Abstract base class for planning component."""
 
     @abstractmethod
-    def plan(self, context: RequestContext) -> ExecutionPlan:
-        """Determines the next execution action.
+    def plan(self, context: RequestContext) -> WorkflowDefinition:
+        """Determines the workflow definition.
 
         Args:
             context: The request context.
 
         Returns:
-            The execution plan.
+            The workflow definition.
         """
         pass
 
@@ -25,8 +26,20 @@ class Planner(ABC):
 class TaskPlanner(Planner):
     """Concrete implementation of the planner."""
 
-    def plan(self, context: RequestContext) -> ExecutionPlan:
-        """Determines the next execution action based on context."""
-        # Simple deterministic logic for Task 4.5.1
-        # Initially only support EXECUTE action, without routing info.
-        return ExecutionPlan(action=ExecutionAction.EXECUTE)
+    def plan(self, context: RequestContext) -> WorkflowDefinition:
+        """Determines the workflow definition based on context."""
+        
+        # Build Task Graph: Sequential Research -> Summary -> PDF
+        graph = TaskGraph()
+        graph.add_task(TaskNode(agent_id="research_agent"))
+        graph.add_task(TaskNode(agent_id="summary_agent", dependencies=["research_agent"]))
+        graph.add_task(TaskNode(agent_id="pdf_agent", dependencies=["summary_agent"]))
+        
+        # Default Plan/Policy
+        plan = ExecutionPlan(policy=ExecutionPolicy(max_retries=2))
+        
+        return WorkflowDefinition(
+            name="research_to_pdf_workflow",
+            plan=plan,
+            task_graph=graph
+        )

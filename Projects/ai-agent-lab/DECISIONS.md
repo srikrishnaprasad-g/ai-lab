@@ -17,6 +17,7 @@
 | ADR-013 | Planner Abstraction                | Accepted |
 | ADR-014 | Runtime Orchestrator               | Accepted |
 | ADR-015 | Production Agent Framework         | Accepted |
+| ADR-016 | TypedWorkflowContext Compatibility | Accepted |
 
 -----
 
@@ -240,3 +241,18 @@ All production agents must inherit from `BaseAgent`, which provides a standardiz
 Rationale:
 Ensures consistency, standardized telemetry, and robust error handling across all agents while decoupling business logic from reusable agent infrastructure.
 
+## ADR-016 — TypedWorkflowContext Compatibility
+
+Status: Accepted
+
+Decision
+
+- RequestContext remains the canonical runtime execution contract.
+- TypedWorkflowContext extends RequestContext.
+- RuntimeOrchestrator operates on TypedWorkflowContext.
+- BaseAgent and all production agents continue to accept RequestContext.
+- Existing public agent APIs remain unchanged.
+
+Rationale
+
+This preserves backward compatibility, complies with the architecture freeze, and resolves the runtime integration contract mismatch discovered during Sprint 6.5C.
