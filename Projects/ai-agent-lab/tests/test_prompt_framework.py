@@ -1,12 +1,22 @@
 """Unit tests for the Prompt Framework."""
 from prompts.prompt_registry import PromptRegistry
 from prompts.prompt_builder import DefaultPromptBuilder
-from prompts.templates import RESEARCH_TEMPLATE, SUMMARIZATION_TEMPLATE, WRITING_TEMPLATE
+from prompts.templates import (
+    RESEARCH_TEMPLATE, 
+    SUMMARIZATION_SYSTEM_V1, 
+    SUMMARIZATION_USER_V1, 
+    WRITING_TEMPLATE
+)
 
 def test_registry_registration():
     registry = PromptRegistry()
     registry.register(RESEARCH_TEMPLATE)
+    registry.register(SUMMARIZATION_SYSTEM_V1)
+    registry.register(SUMMARIZATION_USER_V1)
+    
     assert registry.get("research_task") == RESEARCH_TEMPLATE
+    assert registry.get("summarization_system_v1") == SUMMARIZATION_SYSTEM_V1
+    assert registry.get("summarization_user_v1") == SUMMARIZATION_USER_V1
 
 def test_registry_duplicate_prevention():
     registry = PromptRegistry()
