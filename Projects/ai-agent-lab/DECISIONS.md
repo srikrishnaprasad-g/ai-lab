@@ -18,6 +18,9 @@
 | ADR-014 | Runtime Orchestrator               | Accepted |
 | ADR-015 | Production Agent Framework         | Accepted |
 | ADR-016 | TypedWorkflowContext Compatibility | Accepted |
+| ADR-017 | LLM-Backed Summary Agent Integration | Accepted |
+| ADR-018 | Structured LLM Response Validation | Accepted |
+| ADR-019 | Explicit System Prompt Transmission | Accepted |
 
 -----
 
