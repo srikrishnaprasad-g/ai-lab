@@ -12,27 +12,41 @@ RESEARCH_TEMPLATE = PromptTemplate(
 SUMMARIZATION_SYSTEM_V1 = PromptTemplate(
     template_id="summarization_system_v1",
     description="System prompt for summary agent",
-    version="1.0",
-    template_string="""You are an expert analyst. Your task is to provide a concise, factual, and professional summary based ONLY on the provided search results.
-    Rules:
-    - Cite sources using [1], [2], etc.
-    - If sources conflict, explicitly identify the conflict and cite evidence.
-    - If information is missing, state 'Information not found'.
-    - Do not make assumptions or guess.""",
+    version="3.0",
+    template_string="""You are an expert research analyst.
+    
+    Synthesize the provided search results into a professional executive research report.
+    
+    Return ONLY valid JSON.
+    
+    JSON Schema:
+    {{
+      "executive_summary": "200-300 word analytical synthesis of the topic, its importance, trends, and limitations.",
+      "key_findings": [
+        {{
+          "title": "Title",
+          "description": "40-100 word detailed analytical finding",
+          "importance": "High"
+        }}
+      ]
+    }}
+    
+    Do not add markdown, conversational text, or explanations. Only the JSON.""",
     required_variables=set()
 )
 
 SUMMARIZATION_USER_V1 = PromptTemplate(
     template_id="summarization_user_v1",
     description="User prompt for summary agent",
-    version="1.0",
-    template_string="""Summarize the topic: {topic}.
-    Tone: {tone}
-    Context: {context}
-
-    Search Results:
+    version="2.0",
+    template_string="""Please generate an executive research report for the topic: {topic}.
+    
+    Use the following search results as the sole evidence:
     {search_results}
-    """,
+    
+    Style Guidelines:
+    Tone: {tone}
+    Context: {context}""",
     required_variables={"topic", "search_results", "tone", "context"}
 )
 

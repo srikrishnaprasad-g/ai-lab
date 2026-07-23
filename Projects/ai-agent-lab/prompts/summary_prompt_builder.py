@@ -37,5 +37,4 @@ class SummaryPromptBuilder(PromptBuilder):
             "context": context
         }))
         
-        # NOTE: Returning combined prompt as per PromptResult definition in Sprint 4
-        return PromptResult(prompt=f"System: {system_prompt}\n\nUser: {user_prompt}")
+        return PromptResult(prompt=user_prompt, system_prompt=system_prompt)
