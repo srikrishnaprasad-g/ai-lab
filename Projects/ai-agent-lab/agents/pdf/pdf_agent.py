@@ -39,7 +39,9 @@ class PDFAgent(BaseAgent):
             metadata=Metadata(title="Summary Report", author="AI Agent Lab"),
             content=[
                 Section(heading="Executive Summary", elements=[Paragraph(summary.executive_summary)]),
-                # Map other findings here...
+                Section(heading="Key Findings", elements=[
+                    Paragraph(f"{f.title}: {f.description}") for f in summary.key_findings
+                ])
             ]
         )
         
