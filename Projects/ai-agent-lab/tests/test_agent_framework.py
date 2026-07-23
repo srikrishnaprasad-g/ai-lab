@@ -63,8 +63,9 @@ def test_agent_factory():
     search = MagicMock()
     prompt_registry = MagicMock()
     pdf_generator = MagicMock()
+    llm_provider = MagicMock()
     
-    factory = AgentFactory(telemetry, search, prompt_registry, pdf_generator)
+    factory = AgentFactory(telemetry, search, prompt_registry, pdf_generator, llm_provider)
     agent = factory.create_research_agent()
     assert agent.name() == "research_agent"
     print("Agent factory PASSED.")
