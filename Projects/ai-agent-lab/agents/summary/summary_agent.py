@@ -10,11 +10,19 @@ from agents.summary.models.enums import ConfidenceLevel, ImportanceLevel
 from context.request_context import RequestContext
 from observability.telemetry_service import TelemetryService
 from prompts.summary_prompt_builder import SummaryPromptBuilder
+from llm.llm_provider import LLMProvider
+from llm.llm_request import LLMRequest
+from agents.summary.llm_response_parser import LLMResponseParser
+import time
+import json
+import logging
+
+logger = logging.getLogger("pipeline")
 
 class SummaryAgent(BaseAgent):
     """Production summary agent."""
 
-    def __init__(self, telemetry_service: TelemetryService, prompt_builder: SummaryPromptBuilder) -> None:
+    def __init__(self, telemetry_service: TelemetryService, prompt_builder: SummaryPromptBuilder, llm_provider: LLMProvider) -> None:
         """Initializes the summary agent."""
         capabilities = AgentCapabilities(
             supported_actions=["summarize"],
@@ -28,6 +36,7 @@ class SummaryAgent(BaseAgent):
             capabilities=capabilities
         )
         self._prompt_builder = prompt_builder
+        self._llm_provider = llm_provider
 
     def _execute(self, context: RequestContext) -> AgentResult:
         """Executes summarization logic."""
@@ -53,59 +62,31 @@ class SummaryAgent(BaseAgent):
             tone="professional"
         )
         
-        # NOTE: LLM integration is planned for future sprint.
-        # For now, we simulate the result using the rendered prompt.
-        
-        observations = [
-            Observation(
-                id=f"obs_{i}",
-                title=s.title,
-                snippet=s.snippet,
-                url=s.url,
-                rank=s.rank,
-                provider=request.research_result.search_provider
-            ) for i, s in enumerate(sources)
-        ]
-        
-        # Synthesize Findings and Citations
-        findings = []
-        citations = []
-        for i, obs in enumerate(observations):
-            # Deterministic Finding Title: First 3 words of snippet
-            words = obs.snippet.split()
-            title = " ".join(words[:3]).capitalize() if words else f"Finding {i+1}"
-            
-            findings.append(Finding(
-                title=title,
-                description=obs.snippet,
-                importance=ImportanceLevel.MEDIUM,
-                supporting_observations=[obs],
-                confidence=ConfidenceLevel.HIGH
-            ))
-            
-            # Create citation
-            citations.append(Citation(
-                source_id=obs.id,
-                title=obs.title,
-                url=obs.url,
-                retrieved_at=obs.retrieved_at
-            ))
-        
-        # Confidence logic
-        confidence = ConfidenceLevel.HIGH if len(sources) > 3 else (ConfidenceLevel.LOW if len(sources) == 1 else ConfidenceLevel.MEDIUM)
-        
-        # Knowledge gap logic
-        knowledge_gaps = []
-        if len(sources) == 1:
-            knowledge_gaps.append(KnowledgeGap(question="Insufficient evidence", reason="Single source available", priority=ImportanceLevel.LOW))
+        # LLM Invocation
+        logger.info(f"[PASS] LLM Provider\nProvider: {self._llm_provider.provider_name()}\nModel: {self._llm_provider._config.model}\nAPI Key: Detected\n\nPrompt Length: {len(prompt_result.prompt)} chars\n\nCalling {self._llm_provider.provider_name()}...")
 
-        result = SummaryResult(
-            executive_summary=f"Analysis of {request.research_result.original_query}: Based on {len(sources)} sources, the key findings highlight {findings[0].title if findings else 'several insights'}.",
-            key_findings=findings,
-            knowledge_gaps=knowledge_gaps,
-            citations=citations,
-            confidence=confidence
+        start = time.perf_counter()
+        llm_request = LLMRequest(
+            prompt=prompt_result.prompt,
+            system_prompt=prompt_result.system_prompt,
+            metadata={"request_id": context.request_id}
         )
-        
-        # AgentResult now contains the telemetry context from the prompt builder indirectly
-        return AgentResult(success=True, output=result)
+
+        try:
+            response = self._llm_provider.generate(llm_request)
+            latency = time.perf_counter() - start
+
+            logger.info(f"[PASS] Gemini API\nHTTP Status: 200\nLatency: {latency:.2f} sec\nResponse Length: {len(response.content)} chars")
+
+            # Use dedicated parser/validator
+            result = LLMResponseParser.parse_and_validate(response.content)
+            
+            logger.info(f"[PASS] Summary Agent\nExecutive Summary: {len(result.executive_summary)} chars\nKey Findings: {len(result.key_findings)}\nSummaryResult created.")
+            return AgentResult(success=True, output=result)
+
+        except ValueError as e:
+            logger.error(f"[FAIL] Summary Agent Validation\nReason: {e}")
+            return AgentResult(success=False, output=None, errors=[str(e)])
+        except Exception as e:
+            logger.error(f"[FAIL] Gemini API\nReason: {e}")
+            return AgentResult(success=False, output=None, errors=[str(e)])
