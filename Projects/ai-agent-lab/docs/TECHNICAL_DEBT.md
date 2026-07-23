@@ -6,7 +6,7 @@ This register maintains a living record of known technical debt, improvements, a
 |----|-------|------|----------|------------|--------|--------|
 | TD-001 | Migrate test suite to pytest | Testing | Future | Sprint 5 | Open | Improve test discovery, reporting, fixtures and maintainability. |
 | TD-002 | Consolidate smoke tests | Testing | Minor | Sprint 5 | Open | Reduce duplicated diagnostic execution and simplify maintenance. |
-| TD-003 | System prompt integration in Mock Summary Agent | Agents | Minor | Sprint 5 | Open | Prepare the mock implementation for future LLM-backed execution. |
+| TD-003 | System prompt integration in Mock Summary Agent | Agents | Minor | Sprint 5 | Completed | Integrated production LLM provider. |
 | TD-004 | RuntimeOrchestrator API evolution | Runtime | Future | Sprint 5 | Open | Introduce a single RuntimeOrchestrator.handle_request() entry point so callers remain unaware of agent selection and execution details. |
 | TD-005 | Observation ID references | Observability | Medium | Sprint 6 | Open | Ensure unique identification for spans and traces. |
 | TD-006 | UTC timestamps | Observability | Medium | Sprint 6 | Open | Standardize all timing events to UTC. |
@@ -20,3 +20,4 @@ This register maintains a living record of known technical debt, improvements, a
 | TD-014 | Support DOCX/HTML via new PDFGenerator | PDF | Medium | Sprint 6 | Open | Implement alternative format renderers. |
 | TD-015 | Remove obsolete mock_pdf_tool | Tools | Low | Sprint 6 | Open | Remove redundant mock PDF tool now replaced by ReportLabGenerator. |
 | TD-016 | Introduce Immutable TypedWorkflowContext Snapshots | Runtime | Medium | Sprint 6 | Open | Ensure TypedWorkflowContext cannot be mutated across agent boundaries. |
+| TD-017 | Extract JSON parser in SummaryAgent | Agents | Low | Sprint 7 | Open | Move robust JSON extraction into a reusable parser component. |

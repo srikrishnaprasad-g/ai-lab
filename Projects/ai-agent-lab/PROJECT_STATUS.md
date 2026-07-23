@@ -1,71 +1,57 @@
 # Project Status
 
-## Project Vision
-User Request -> Research Agent -> Summary Agent -> PDF Agent -> Professional PDF Report
-
-## Current Architecture
-Layered architecture with a clear composition root (`RuntimeBootstrap`). Modular subsystems: Agent, Prompt, Tool, Runtime, Search. Providers abstract external services (LLMs, Search).
-
-## Current Release
-Sprint 5
+## Project Overview
+Mission: Build a production-quality modular Multi-Agent Runtime.
+Current MVP: Research Agent → Summary Agent → PDF Agent → PDF Report
+Current Architecture: Layered, composition root (RuntimeBootstrap), DI-based.
+Current Version: v0.6.0-rc1
 
 ## Current Sprint
-Sprint 6: Summary Agent Implementation
+Sprint 7: Production LLM Integration & Observability
 
-## Completed Tasks
-- Sprint 1-5: Base Runtime Foundation (Agents, Prompts, Tools, CLI).
-- Sprint 6 (Task 6.1): Search Framework (Tavily Provider implementation).
-- Sprint 6 (Task 6.2): Research Agent (Done).
-- Sprint 6 (Task 6.3A): Summary Domain Models & Contracts (Done).
-- Sprint 6 (Task 6.3B): Summary Agent (Done).
-- Sprint 6 (Task 6.3C): Summary Prompt Engineering (Done).
-- Sprint 6 (Task 6.4): PDF Agent Implementation (Done).
-- Sprint 6 (Task 6.5A): Architecture (Done).
-- Sprint 6 (Task 6.5A-R): Architecture Refinement(Done).
-- Sprint 6 (Task 6.5A-R2): Documentation Synchronization (Done).
-- Sprint 6 (Task 6.5B): Multi-Agent Orchestrator Implementation (Done).
-- Sprint 6 (Task 6.5C): Runtime Integration (Done).
-- Sprint 6 (Task 6.5D): Validation & Hardening (Done).
-
-
-## Sprint Roadmap
-- Sprint 6: Summary Agent Implementation.
-    - 6.1 Search Framework (Done)
-    - 6.2 Research Agent (Done)
-    - 6.3A Summary Models & Contracts (Done)
-    - 6.3B Summary Agent (Done)
-    - 6.3C Summary Prompt Engineering (Done)
-    - 6.4 PDF Agent (Done)
-    - 6.5 Multi-Agent Orchestrator Implementation (Done)
-    - 6.6 Demo, Validation & Release (Todo)
-
-## Current Task
-Release Management Complete
-
-## Current Deliverable
-Release Candidate RC1 Package
+## Sprint Goal
+Productionize the LLM integration, improve observability, and harden the runtime.
 
 ## Current Status
-Sprint 6 completed. Repository packaged for RC1.
+- Sprint 7 completed: 
+  - LLM integration implemented with Gemini provider.
+  - Prompt framework refactored for strict JSON contract.
+  - Pipeline instrumentation for observability implemented.
+  - Engineering documentation synchronized.
+  - Release Candidate (RC1) packaged.
 
-## Immediate Next Task
-Sprint 7 Planning
-## Latest Architectural Decisions
-- Search Framework decoupled via `SearchProvider` interface.
-- Providers injected via DI.
-- Tavily selected as production search provider.
-- Research Agent returns structured `ResearchResult` instead of serialized string.
-- Agent failures are consistently handled via `AgentResult.errors`.
-- Summary agent contracts implemented via strongly-typed dataclasses.
-
-## Repository Health
-Healthy. All unit/integration tests pass. Integration validation for Tavily pending API key.
-
-## Technical Debt Summary
-- TD-001: Migrate test suite to pytest
-- TD-002: Consolidate smoke tests
-- TD-003: System prompt integration in Mock Summary Agent
+## Remaining Work
+- TD-001: Migrate to pytest
 - TD-004: RuntimeOrchestrator API evolution
 
-## Last Updated
-21-JUL-2026
+## Completed Milestones
+- Sprint 1-5: Base Runtime Foundation (Agents, Prompts, Tools, CLI).
+- Sprint 6: Summary Agent Implementation (Search Framework, Research, Summary, PDF Agents).
+- Sprint 7: Production LLM Integration, Prompt Engineering, Observability.
+
+## Current Architecture Snapshot
+- **Runtime**: Orchestrator, Planner (static), Execution Pipeline (Telemetry/Retry stages).
+- **Agents**: Research, Summary (LLM-backed), PDF.
+- **Providers**: Gemini (Production), Tavily (Search).
+- **Prompt Framework**: PromptBuilder, PromptResult (system/user separation), TemplateRegistry.
+- **Reporting Pipeline**: SummaryAgent (JSON) → PDFAgent → ReportLab (PDF).
+- **Observability**: Stage-by-stage tracing in `verbose` mode.
+- **Validation**: E2E smoke tests and integration tests.
+
+## Repository Status
+- Current Branch: main
+- Repository Health: Healthy (9.5/10)
+- Documentation Status: Synchronized
+- Testing Status: All pass
+- Technical Debt Status: Tracked in `docs/TECHNICAL_DEBT.md`
+
+## Immediate Next Steps
+- Sprint 7.5: Final Production Hardening (This task is now integrated into the final release prep).
+- Sprint 8 Planning: New feature implementation.
+
+## Risks
+- **Medium**: Reliance on static `TaskPlanner` (TD-004).
+- **Mitigation**: Future dynamic planning migration.
+
+## Immediate Priorities
+- Final Git commit and tagging of RC1.

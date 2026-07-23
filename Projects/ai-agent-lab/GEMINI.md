@@ -1,258 +1,50 @@
-# AI Agent Lab
-
-## Mission
-
-Build a production-quality modular Multi-Agent Runtime.
-
-## Current MVP
-
-Research Topic
-↓
-
-Research Agent
-↓
-
-Web Search
-
-↓
-
-Writer Agent
-
-↓
-
-PDF Agent
-
-↓
-
-Return PDF
-
-## Engineering Rules
-
-- **MANDATORY:** Always follow `docs/IMPLEMENTATION_TEMPLATE.md` for all tasks.
-- Always read PROJECT.md
-- Always read ENGINEERING.md
-- Never skip compile
-- Never skip smoke tests
-- Never skip runtime validation
-- Never modify unrelated files
-- Never implement future sprint features
-
-## Development Workflow
-
-1. Read `docs/IMPLEMENTATION_TEMPLATE.md`.
-2. Understand task.
-3. Explain design.
-4. Implement.
-5. Self-review.
-6. Compile.
-7. Smoke Test.
-8. Runtime Validation.
-9. Architecture Review.
-10. Git Commit.
-11. Repository Verification.
-
-## Git
-
-Never commit automatically.
-
-Always wait for user confirmation.
-
-## Coding Standards
-
-- Python 3.13
-- Type hints required
-- Google docstrings
-- Small cohesive classes
-- Composition over inheritance
-- No dead code
-- No commented-out code
-
-## Validation Policy
-
-Compilation success does not imply correctness.
-
-Every task must pass:
-
-- Compile validation
-- Import validation
-- Runtime validation
-- Smoke test
-- Architecture review
-
-before it can be committed.
-
-# Your Role
-
-You are the Software Engineer for this repository.
-
-You are responsible not only for implementing features but also for protecting the long-term health of the codebase.
-
-You must think like a Senior Software Engineer.
-
-# Responsibilities
-
-For every task you must:
-
-- Review the existing architecture.
-- Review existing implementations.
-- Reuse existing abstractions.
-- Avoid duplication.
-- Keep changes localized.
-- Explain design decisions.
-- Perform a self-review.
-- Validate runtime behavior.
-- Identify technical debt.
-- Identify repository improvements.
-
-# Repository Review
-
-Before completing any task you must determine whether your implementation introduced:
-
-- duplicate files
-- duplicate logic
-- obsolete files
-- obsolete imports
-- inconsistent naming
-- stale documentation
-- broken architecture
-
-# Repository Health Report
-
-Every task ends with:
-
-Repository Health Summary
-
-Critical
-
-Recommended
-
-Future
-
-Exactly three sections.
-
-No more.
-
-# Self Review
-
-Before declaring a task complete ask yourself:
-
-Can this reuse an existing abstraction?
-
-Can I remove code instead of adding code?
-
-Did I duplicate logic?
-
-Did I create technical debt?
-
-Should PROJECT.md change?
-
-Should ENGINEERING.md change?
-
-Should DECISIONS.md change?
-
-# Documentation Responsibilities
-
-Whenever architecture changes
-
-Update:
-
-PROJECT.md
-
-ENGINEERING.md
-
-DECISIONS.md
-
-Whenever engineering workflow changes
-
-Update:
-
-ENGINEERING.md
-
-GEMINI.md
-
-# Definition of Done
-
-✔ Compile
-
-✔ Runtime
-
-✔ Smoke Test
-
-✔ Architecture Review
-
-✔ Repository Health Review
-
-✔ Documentation Review
-
-✔ Technical Debt Review
-
-✔ Git Ready
-
-# Architecture Freeze Rule
-
-During implementation sprints,
-
-the AI should
-
-NOT
-
-introduce architectural redesigns
-
-unless
-
-1. implementation is impossible
-
-or
-
-2. an existing ADR is violated.
-
-Otherwise,
-
-record the recommendation in the
-Future Architecture Register.
-
-# Sprint 5 Workflow & Guidelines
-
-## Engineering Workflow
-1. **Design Review:** Document new functionality in `docs/` before implementation.
-2. **Implementation:** Follow `BaseAgent` and `RuntimeOrchestrator` contracts.
-3. **Validation:**
-    - Compile: `python -m compileall .`
-    - Tests: `python tests/test_agent_framework.py`
-    - Integration: `python scripts/test_runtime_orchestrator.py`
-    - End-to-End: `python scripts/test_e2e_runtime.py`
-4. **Repository Health Check:** Confirm clean boundaries, no duplication, no dead code.
-5. **Documentation Update:** Update `PROJECT.md`, `ENGINEERING.md` (if needed), and relevant `docs/` files.
-6. **Completion Report:** Use the standardized template below.
-
-## Repository Metrics & Health Template
-Every task must include the following metrics and health check:
-
-### Repository Metrics
-- Python files: [count]
-- Source LOC: [count]
-- Test LOC: [count]
-- Markdown files: [count]
-- ADR count: [count]
-- Packages: [count]
-- Agents: [count]
-- Tools: [count]
-- Prompt templates: [count]
-- Test scripts: [count]
-
-### Repository Health
-- Critical:
-- Warnings:
-- Recommendations:
-- Technical Debt:
-- Dead Code:
-- Duplicate Code:
-- Package Boundaries:
-- Architecture Drift:
-- Overall Assessment:
-
-## Definition of Done (Sprint 5)
-- All tests pass.
-- Runtime validation passes.
+# Gemini CLI - Engineering Guide
+
+This guide defines the development standards and workflow for the AI Agent Lab project.
+
+## 1. Implementation Workflow
+1. **Mandatory Preparation**: Review `PROJECT.md`, `ENGINEERING.md`, `DECISIONS.md`, and relevant `docs/` design docs.
+2. **Design Review**: If the task changes architecture, draft an ADR.
+3. **Implementation**: Follow `BaseAgent` and `RuntimeOrchestrator` contracts.
+4. **Validation**: Execute compile, unit, integration, and end-to-end tests.
+5. **Self-Review**: Verify against Engineering Principles.
+6. **Delivery**: Commit (logical grouping) and Tag.
+
+## 2. Architectural Guard Rails
+- **Architecture Freeze**: Do not redesign the runtime during implementation sprints.
+- **Dependency Injection**: Use constructor injection exclusively.
+- **Provider Abstraction**: Access external services (LLM, Search) only through defined Provider interfaces.
+- **Prompt Separation**: Always use `SummaryPromptBuilder` to separate system/user instructions.
+- **JSON Contract**: Enforce structured JSON schema validation at the parsing boundary.
+
+## 3. Coding Standards
+- Python 3.13+
+- Type hints: Mandatory for all public methods and data structures.
+- Logging: Use structured logging (`logging` module). Avoid `print()`.
+- Error Handling: Fail fast, propagate explicit errors, validate contracts, and log diagnostic details.
+
+## 4. Validation Policy
+A task is complete only when:
+- `py_compile` succeeds.
+- All relevant integration/E2E tests pass.
 - Repository health check passes.
-- Documentation updated (PROJECT.md, AGENT_DESIGN.md).
+- Documentation (PROJECT.md, DECISIONS.md) updated.
+
+## 5. Definition of Done
+- All tests pass (Unit/Integration/E2E).
+- Documentation updated and verified.
+- Technical debt recorded (or resolved).
+- Repository health audit clean.
+- Git commit created.
+
+## 6. Stop Conditions
+- Undocumented architectural change.
+- Conflicting implementation logic.
+- Material difference between implementation and documentation.
+- Validation failure.
+*If any stop condition occurs, initiate an investigation report before proceeding.*
+
+## 7. Lessons Learned (Sprint 7)
+- **Prompt Engineering**: Separating system instructions (`systemInstruction`) significantly improves JSON compliance.
+- **Robust Parsing**: Raw LLM output often requires regex-based JSON extraction to handle conversational verbosity.
+- **Observability**: Stage-by-stage tracing in verbose mode is essential for debugging production workflows.
