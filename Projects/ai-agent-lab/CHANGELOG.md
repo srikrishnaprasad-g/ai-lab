@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## [8.0] - 2026-07-24
+### Added
+- CLI redesign for production polish.
+- Runtime configuration display in CLI banner.
+- Secure HTTP logging with API key masking.
+- Terminal report display (Executive Summary, Key Findings).
+- Structured verbose mode output.
+- PDF generation pagination and multi-page support.
+- IST timezone support for generation time.
+
 ## [0.6.0-rc1] - 2026-07-23
 
 ### Achievements

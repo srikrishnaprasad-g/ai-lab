@@ -28,6 +28,7 @@ Productionize the LLM integration, improve observability, and harden the runtime
 - Sprint 1-5: Base Runtime Foundation (Agents, Prompts, Tools, CLI).
 - Sprint 6: Summary Agent Implementation (Search Framework, Research, Summary, PDF Agents).
 - Sprint 7: Production LLM Integration, Prompt Engineering, Observability.
+- Sprint 8: CLI Experience & Developer Experience Enhancement.
 
 ## Current Architecture Snapshot
 - **Runtime**: Orchestrator, Planner (static), Execution Pipeline (Telemetry/Retry stages).

@@ -44,7 +44,9 @@ A task is complete only when:
 - Validation failure.
 *If any stop condition occurs, initiate an investigation report before proceeding.*
 
-## 7. Lessons Learned (Sprint 7)
+## 7. Lessons Learned (Sprint 7 & 8)
 - **Prompt Engineering**: Separating system instructions (`systemInstruction`) significantly improves JSON compliance.
 - **Robust Parsing**: Raw LLM output often requires regex-based JSON extraction to handle conversational verbosity.
 - **Observability**: Stage-by-stage tracing in verbose mode is essential for debugging production workflows.
+- **Credential Protection**: Always route API urls and headers through masking utilities (`mask_api_key`) before writing to any log stream.
+- **Clean Output Philosophy**: Maintain strict separation between user-facing presentation and developer-oriented debugging. Never print raw dataclasses (e.g., `PDFResult(...)`) in default normal mode. Use clean, formatted markdown or block-based summaries instead.

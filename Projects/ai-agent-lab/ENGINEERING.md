@@ -51,3 +51,11 @@ The AI Agent Lab uses a provider-based, DI-heavy architecture:
 ## 9. Repository Governance
 - Repository Health Audit at sprint conclusion.
 - Technical Debt and Recommendations are tracked.
+
+## 10. CLI Architecture & Output Philosophy
+The CLI serves as both a demonstration tool and an SDK integration wrapper. It operates on a clean, robust design:
+- **Two-Tier Output Modes**:
+  - **Normal Mode (Default)**: Optimized for customer evaluations and demonstrations. Shows a concise progress flow, the final report (Executive Summary and Key Findings), and PDF details without any internal debug logs.
+  - **Verbose Mode (`--verbose`)**: Optimized for production diagnostics. Outputs structural request timelines, detailed latencies, and debug logs.
+- **Unified Progress Display**: Progress is managed centrally and printed in a stage-based layout (`▶ Stage`, `✓ Completed`), eliminating duplicate agent-level logging.
+- **Security & Credential Masking**: To ensure zero-leakage, all API keys and bearer tokens are intercepted and masked (e.g. `AQ.A****************92OQ`) before URLs or HTTP logs are written.
