@@ -63,7 +63,7 @@ class SummaryAgent(BaseAgent):
         )
         
         # LLM Invocation
-        logger.info(f"[PASS] LLM Provider\nProvider: {self._llm_provider.provider_name()}\nModel: {self._llm_provider._config.model}\nAPI Key: Detected\n\nPrompt Length: {len(prompt_result.prompt)} chars\n\nCalling {self._llm_provider.provider_name()}...")
+        logger.debug(f"Calling {self._llm_provider.provider_name()} with model {self._llm_provider._config.model}. Prompt length: {len(prompt_result.prompt)} chars")
 
         start = time.perf_counter()
         llm_request = LLMRequest(
@@ -76,12 +76,24 @@ class SummaryAgent(BaseAgent):
             response = self._llm_provider.generate(llm_request)
             latency = time.perf_counter() - start
 
-            logger.info(f"[PASS] Gemini API\nHTTP Status: 200\nLatency: {latency:.2f} sec\nResponse Length: {len(response.content)} chars")
+            logger.debug(f"[PASS] Gemini API\nHTTP Status: 200\nLatency: {latency:.2f} sec\nResponse Length: {len(response.content)} chars")
 
             # Use dedicated parser/validator
             result = LLMResponseParser.parse_and_validate(response.content)
             
-            logger.info(f"[PASS] Summary Agent\nExecutive Summary: {len(result.executive_summary)} chars\nKey Findings: {len(result.key_findings)}\nSummaryResult created.")
+            # Store provider in metadata for PDF Agent to access
+            result.metadata["provider"] = self._llm_provider.provider_name()
+            
+            # Store detailed metrics in context working memory for verbose reporting
+            context.working_memory["summary_metrics"] = {
+                "provider": self._llm_provider.provider_name(),
+                "model": self._llm_provider._config.model,
+                "prompt_length": len(prompt_result.prompt),
+                "response_length": len(response.content),
+                "latency": latency,
+                "status_code": 200
+            }
+            
             return AgentResult(success=True, output=result)
 
         except ValueError as e:

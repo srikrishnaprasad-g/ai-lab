@@ -30,7 +30,7 @@ class ResearchAgent(BaseAgent):
 
     def _execute(self, context: RequestContext) -> AgentResult:
         """Executes research logic."""
-        if not context.user_request.strip():
+        if not context.user_request or not context.user_request.strip():
             return AgentResult(success=False, output=None, errors=["Empty query."])
             
         start_time = time.perf_counter()

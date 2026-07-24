@@ -44,7 +44,7 @@ class BaseAgent(Agent, ABC):
 
     def execute(self, context: RequestContext) -> AgentResult:
         """Executes the agent's logic with telemetry and error handling."""
-        logger.info(f"Agent {self._name} executing for request {context.request_id}")
+        logger.debug(f"Agent {self._name} executing for request {context.request_id}")
         
         span = self._telemetry.start_span(
             name=f"agent_execute_{self._name}",
@@ -56,7 +56,7 @@ class BaseAgent(Agent, ABC):
             result = self._execute(context)
             
             if result.success:
-                logger.info(f"Agent {self._name} execution succeeded.")
+                logger.debug(f"Agent {self._name} execution succeeded.")
             else:
                 logger.error(f"Agent {self._name} execution failed: {result.errors}")
                 

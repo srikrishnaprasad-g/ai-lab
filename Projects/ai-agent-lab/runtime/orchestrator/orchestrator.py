@@ -39,6 +39,9 @@ class RuntimeOrchestrator:
             
             # Context-driven input preparation (Task 6.5A-R Recommendation)
             if task_id == "summary_agent":
+                # Inject model into context for PDF generation tracking
+                context.set("model", self._registry.get("summary_agent")._llm_provider._config.model)
+                
                 research_result = context.working_memory.get("research_result")
                 if isinstance(research_result, ResearchResult):
                     # Construct SummaryRequest for SummaryAgent
@@ -57,26 +60,29 @@ class RuntimeOrchestrator:
             try:
                 result = self._pipeline.execute(agent.execute, context)
                 if not result.success:
-                    logger.info(f"[FAIL] {task_id.replace('_', ' ').title()}")
+                    logger.error(f"[FAIL] {task_id.replace('_', ' ').title()}")
                     return None
             except Exception as e:
-                logger.info(f"[FAIL] {task_id.replace('_', ' ').title()}\nReason: {e}")
+                logger.error(f"[FAIL] {task_id.replace('_', ' ').title()}\nReason: {e}")
                 raise
             
             duration = (time.perf_counter() - start) * 1000
-            logger.info(f"[PASS] {task_id.replace('_', ' ').title()} ({int(duration)} ms)")
             
-            # Context-driven output propagation (Task 6.5A-R Recommendation)
+            # Simplified stage reporting
+            logger.info(f"▶ {task_id.replace('_', ' ').title()}")
+            logger.info(f"✓ Completed ({int(duration)} ms)")
+            
+            # Context-driven output propagation
             if result.success and result.output is not None:
                 if task_id == "research_agent":
                     context.set("research_result", result.output)
-                    logger.info(f"[PASS] Tavily\nResults: {len(result.output.sources)}")
+                    logger.debug(f"[PASS] Tavily\nResults: {len(result.output.sources)}")
                 elif task_id == "summary_agent":
                     context.set("summary_result", result.output)
-                    logger.info(f"[PASS] Summary Agent\nFindings: {len(result.output.key_findings)}")
+                    logger.debug(f"[PASS] Summary Agent\nFindings: {len(result.output.key_findings)}")
                 elif task_id == "pdf_agent":
                     context.set("final_result", result.output)
-                    logger.info(f"[PASS] PDF Agent\nSections: 2")
+                    logger.debug(f"[PASS] PDF Agent\nSections: 2")
             
             completed_tasks.append(task_id)
             
