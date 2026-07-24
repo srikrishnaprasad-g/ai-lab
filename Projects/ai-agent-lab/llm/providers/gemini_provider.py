@@ -1,5 +1,8 @@
 """Gemini provider implementation."""
 
+import logging
+from observability.log_utils import mask_api_key
+
 from llm.exceptions import (
     LLMException, 
     LLMAuthenticationError, 
@@ -12,6 +15,8 @@ from llm.llm_request import LLMRequest
 from llm.llm_response import LLMResponse
 from llm.providers.gemini_response_mapper import GeminiResponseMapper
 from search.http_exceptions import HTTPTimeoutError, HTTPRequestError
+
+logger = logging.getLogger("pipeline")
 
 
 class GeminiProvider(BaseLLMProvider):
@@ -45,10 +50,15 @@ class GeminiProvider(BaseLLMProvider):
             payload.setdefault("generationConfig", {})["temperature"] = request.temperature
         if request.max_tokens is not None:
             payload.setdefault("generationConfig", {})["maxOutputTokens"] = request.max_tokens
-
+        
         try:
             # Construct URL with key parameter
+            masked_key = mask_api_key(self._config.api_key)
             final_url = f"{url}?key={self._config.api_key}"
+            # Log the request URL using the masked key for safety if the client logs it
+            masked_url = f"{url}?key={masked_key}"
+            logger.debug(f"Request URL: {masked_url}")
+            
             response_data = self._http_client.post(final_url, json=payload)
             return GeminiResponseMapper.map_response(response_data, model)
         except HTTPTimeoutError as e:

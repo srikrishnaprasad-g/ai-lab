@@ -10,7 +10,7 @@ from observability.telemetry_service import TelemetryService
 def test_pdf_agent_successful():
     telemetry = MagicMock(spec=TelemetryService)
     generator = MagicMock(spec=PDFGenerator)
-    generator.generate.return_value = Path("test.pdf")
+    generator.generate.return_value = (Path("test.pdf"), 1)
     agent = PDFAgent(telemetry, generator)
     
     summary = SummaryResult(executive_summary="Test", key_findings=[], knowledge_gaps=[], citations=[], confidence=MagicMock())

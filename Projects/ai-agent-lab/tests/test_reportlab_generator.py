@@ -13,9 +13,10 @@ def test_reportlab_generator_creates_file():
     output_path = Path("temp_test.pdf")
     
     try:
-        result_path = generator.generate(doc, output_path)
+        result_path, page_count = generator.generate(doc, output_path)
         assert result_path.exists()
         assert result_path.name == "temp_test.pdf"
+        assert page_count == 1
         print("ReportLabGenerator test passed.")
     finally:
         if output_path.exists():
