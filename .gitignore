@@ -1,0 +1,6 @@
+Scripts/
+Tools/
+*.tmp
+
+# Personal notes
+Basic Commands.txt
