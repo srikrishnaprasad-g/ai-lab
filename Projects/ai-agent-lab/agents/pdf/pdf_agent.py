@@ -1,5 +1,6 @@
 """Production PDF agent implementation."""
 
+import os
 from pathlib import Path
 from datetime import datetime
 from agents.base_agent import BaseAgent
@@ -44,7 +45,7 @@ class PDFAgent(BaseAgent):
             Section(heading="User Query", elements=[Paragraph(user_query)]),
             Section(heading="Executive Summary", elements=[Paragraph(summary.executive_summary)]),
             Section(heading="Key Findings", elements=[
-                Paragraph(f"{f.title}: {f.description}") for f in summary.key_findings
+                Section(heading=f.title, elements=[Paragraph(f.description)]) for f in summary.key_findings
             ])
         ]
         
@@ -61,7 +62,10 @@ class PDFAgent(BaseAgent):
             content=content
         )
         
-        output_path = Path(f"report_{context.request_id}.pdf")
+        report_dir = os.getenv("REPORT_DIR", ".")
+        os.makedirs(report_dir, exist_ok=True)
+        output_path = Path(report_dir) / f"report_{context.request_id}.pdf"
+        
         generated_path, page_count = self._generator.generate(doc, output_path)
         
         result = PDFResult(file_path=generated_path, page_count=page_count)
