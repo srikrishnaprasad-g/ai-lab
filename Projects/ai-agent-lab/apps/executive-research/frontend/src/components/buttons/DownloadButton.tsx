@@ -1,4 +1,5 @@
 import React from 'react';
+import { API_BASE_URL } from '@/config/api';
 
 interface DownloadButtonProps {
   isVisible: boolean;
@@ -9,7 +10,7 @@ export const DownloadButton = ({ isVisible, reportId }: DownloadButtonProps) => 
   if (!isVisible) return null;
 
   const handleDownload = () => {
-    window.location.href = `http://localhost:8000/api/v1/download/${reportId}`;
+    window.location.href = `${API_BASE_URL}/api/v1/download/${reportId}`;
   };
 
   return (

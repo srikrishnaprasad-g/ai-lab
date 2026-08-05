@@ -8,9 +8,9 @@ import uuid
 import os
 from pathlib import Path
 
-# Force the report directory to be an absolute path in the backend directory
-base_dir = Path(__file__).resolve().parent.parent
-reports_dir = base_dir / "reports"
+# Set up the report directory from settings
+reports_dir = Path(settings.REPORTS_DIR).resolve()
+reports_dir.mkdir(parents=True, exist_ok=True)
 os.environ["REPORT_DIR"] = str(reports_dir)
 
 app = FastAPI(
