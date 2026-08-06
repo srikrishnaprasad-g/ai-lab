@@ -58,6 +58,7 @@ build/
 dist/
 *.egg-info/
 .puvinoise/
+reports/
 
 # ==========================================================
 # Jupyter
