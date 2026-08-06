@@ -8,7 +8,6 @@ export interface ResearchResult {
   keyInsights: KeyInsight[];
   reportId: string;
 }
-...
 
 export type StepStatus = 'pending' | 'running' | 'completed';
 
