@@ -2,3 +2,7 @@ fastapi
 uvicorn[standard]
 pydantic-settings
 python-dotenv
+httpx
+reportlab
+pydantic
+jinja2
