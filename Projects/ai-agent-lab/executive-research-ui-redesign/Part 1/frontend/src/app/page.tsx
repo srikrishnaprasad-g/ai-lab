@@ -12,8 +12,7 @@ import { DownloadButton } from '../components/buttons/DownloadButton';
 import { useExecutiveResearch } from '../hooks/useExecutiveResearch';
 
 export default function Home() {
-  const { isProcessing, results, error, progressSteps, generateReport, reset } =
-    useExecutiveResearch();
+  const { isProcessing, results, error, progressSteps, generateReport } = useExecutiveResearch();
 
   return (
     <main className="flex min-h-screen w-full flex-col items-center">
@@ -21,12 +20,7 @@ export default function Home() {
 
       <div className="flex w-full max-w-[720px] flex-grow flex-col px-6 pb-20">
         <div className="mt-8">
-          <QueryInput
-            onGenerate={generateReport}
-            onReset={reset}
-            isProcessing={isProcessing}
-            hasResults={!!results}
-          />
+          <QueryInput onGenerate={generateReport} isProcessing={isProcessing} />
         </div>
 
         {error && (
