@@ -11,7 +11,7 @@ export const DownloadButton = ({ isVisible, reportId }: DownloadButtonProps) => 
   if (!isVisible) return null;
 
   const handleDownload = () => {
-    window.location.href = `${API_BASE_URL}/download/${reportId}`;
+    window.location.href = `${API_BASE_URL}/api/v1/download/${reportId}`;
   };
 
   return (
