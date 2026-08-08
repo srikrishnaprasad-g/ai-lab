@@ -92,7 +92,7 @@ export const QueryInput = ({ onGenerate, onReset, isProcessing, hasResults }: Qu
             className="group flex-1 inline-flex items-center justify-center gap-2 rounded-md bg-ink py-3.5 font-body text-[15px] font-semibold text-paper transition-colors duration-200 hover:bg-ink-soft disabled:cursor-not-allowed disabled:opacity-50 focus-brass"
           >
             {isProcessing ? (
-              <><Loader2 className="h-4 w-4 animate-spin text-brass-light" />Assembling briefing…</>
+              <><Loader2 className="h-4 w-4 animate-spin text-brass-light" />Assembling the brief…</>
             ) : (
               <>Commission the report <ArrowRight className="h-4 w-4 text-brass-light transition-transform duration-200 group-hover:translate-x-0.5" /></>
             )}
